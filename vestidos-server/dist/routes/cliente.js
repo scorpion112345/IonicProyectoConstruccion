@@ -1,0 +1,69 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const clienteRoutes = express_1.Router();
+const pool = require('../database');
+clienteRoutes.get('/create', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    const body = req.body;
+    const newCliente = {
+        nombre: body.nombre,
+        apellidos: body.apellidos,
+        telefono: body.telefono,
+        id_vestido: body.id_vestido
+    };
+    pool.query('INSERT INTO cliente set ?', [newCliente])
+        .then((resp) => {
+        res.json({
+            ok: true,
+            mensaje: "Creado correctamente"
+        });
+        console.log(resp);
+    }).catch((err) => {
+        res.json(err);
+    });
+}));
+clienteRoutes.get('/', (req, res) => {
+    pool.query('SELECT * FROM clientes ORDER BY id DESC')
+        .then((clientes) => {
+        res.json({
+            ok: true,
+            clientes,
+        });
+    }).catch((err) => {
+        res.json(err);
+    });
+    ;
+});
+clienteRoutes.get('/', (req, res) => {
+    pool.query('SELECT * FROM clientes ORDER BY id DESC')
+        .then((clientes) => {
+        res.json({
+            ok: true,
+            clientes,
+        });
+    }).catch((err) => {
+        res.json(err);
+    });
+    ;
+});
+clienteRoutes.get('/:id', (req, res) => {
+    const id = req.params.id;
+    pool.query('SELECT nombre, apellidos, telefono, modelo ,color ,tela ,talla ,complementos ,estado ,observaciones FROM cliente, vestidos WHERE cliente.id = ? AND  cliente.id_vestido = vestidos.id', [id])
+        .then((clientes) => {
+        res.json({
+            ok: true,
+            clientes,
+        });
+    }).catch((err) => {
+        res.json(err);
+    });
+});
+exports.default = clienteRoutes;
