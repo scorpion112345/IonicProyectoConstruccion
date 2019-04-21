@@ -4,6 +4,7 @@ import clienteRoutes from './routes/cliente';
 import bodyParser from 'body-parser';
 import vestidoRoutes from './routes/vestido';
 import userRoutes from './routes/usuario';
+import citasRoutes from './routes/citas';
 
 const server = new Server();
 
@@ -15,6 +16,8 @@ server.app.use(bodyParser.json());
 server.app.use( '/clientes', clienteRoutes );
 server.app.use( '/vestidos', vestidoRoutes );
 server.app.use( '/user', userRoutes );
+server.app.use( '/citas', citasRoutes );
+
 
 
 

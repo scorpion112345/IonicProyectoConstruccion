@@ -5,8 +5,9 @@ const autenticacion_1 = require("../middlewares/autenticacion");
 const vestidoRoutes = express_1.Router();
 const pool = require('../database');
 // Crear un nuevo vestido
-vestidoRoutes.post('/create', [autenticacion_1.verificaToken], (req, res) => {
+vestidoRoutes.post('/create/:idCliente', [autenticacion_1.verificaToken], (req, res) => {
     const body = req.body;
+    const idCliente = req.params.idCliente;
     const newVestido = {
         modelo: body.modelo,
         color: body.color,
@@ -16,13 +17,28 @@ vestidoRoutes.post('/create', [autenticacion_1.verificaToken], (req, res) => {
         estado: body.estado,
         observaciones: body.observaciones || ''
     };
+    console.log(parseInt(idCliente));
     pool.query('INSERT INTO vestidos set ?', [newVestido])
         .then((resp) => {
-        res.json({
-            ok: true,
-            mensaje: "Creado correctamente"
-        });
-        console.log(resp);
+        console.log(parseInt(resp.insertId));
+        if (resp.affectedRows == 1) {
+            pool.query('UPDATE cliente set id_vestido = ? WHERE id = ? ', [parseInt(resp.insertId), parseInt(idCliente)])
+                .then((cliente) => {
+                res.json({
+                    ok: true,
+                    mensaje: "Vestido y cliente creado correctamente"
+                });
+                console.log(cliente);
+            }).catch((err) => {
+                res.json(err);
+            });
+        }
+        else {
+            res.json({
+                ok: false,
+                mensaje: "No se pudo crear el vestido"
+            });
+        }
     }).catch((err) => {
         res.json(err);
     });

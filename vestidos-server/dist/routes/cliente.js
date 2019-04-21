@@ -11,13 +11,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const clienteRoutes = express_1.Router();
 const pool = require('../database');
-clienteRoutes.get('/create', (req, res) => __awaiter(this, void 0, void 0, function* () {
+clienteRoutes.post('/create', (req, res) => __awaiter(this, void 0, void 0, function* () {
     const body = req.body;
     const newCliente = {
         nombre: body.nombre,
         apellidos: body.apellidos,
-        telefono: body.telefono,
-        id_vestido: body.id_vestido
+        telefono: body.telefono
     };
     pool.query('INSERT INTO cliente set ?', [newCliente])
         .then((resp) => {
@@ -31,19 +30,7 @@ clienteRoutes.get('/create', (req, res) => __awaiter(this, void 0, void 0, funct
     });
 }));
 clienteRoutes.get('/', (req, res) => {
-    pool.query('SELECT * FROM clientes ORDER BY id DESC')
-        .then((clientes) => {
-        res.json({
-            ok: true,
-            clientes,
-        });
-    }).catch((err) => {
-        res.json(err);
-    });
-    ;
-});
-clienteRoutes.get('/', (req, res) => {
-    pool.query('SELECT * FROM clientes ORDER BY id DESC')
+    pool.query('SELECT * FROM cliente ORDER BY id DESC')
         .then((clientes) => {
         res.json({
             ok: true,
@@ -56,7 +43,7 @@ clienteRoutes.get('/', (req, res) => {
 });
 clienteRoutes.get('/:id', (req, res) => {
     const id = req.params.id;
-    pool.query('SELECT nombre, apellidos, telefono, modelo ,color ,tela ,talla ,complementos ,estado ,observaciones FROM cliente, vestidos WHERE cliente.id = ? AND  cliente.id_vestido = vestidos.id', [id])
+    pool.query('SELECT * FROM cliente, vestidos WHERE cliente.id = ? AND  cliente.id_vestido = vestidos.id', [id])
         .then((clientes) => {
         res.json({
             ok: true,

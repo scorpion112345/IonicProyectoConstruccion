@@ -86,4 +86,7 @@ ALTER TABLE cita
   ALTER TABLE cita
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;  
 
+ALTER TABLE cita
+    ADD tipo_cita ENUM('Presupuesto', 'Prueba', 'Entrega') NOT NULL  ;
+
 DESCRIBE cita;
