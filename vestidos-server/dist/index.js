@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = __importDefault(require("./classes/server"));
 const cliente_1 = __importDefault(require("./routes/cliente"));
+const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const vestido_1 = __importDefault(require("./routes/vestido"));
 const usuario_1 = __importDefault(require("./routes/usuario"));
@@ -13,6 +14,8 @@ const server = new server_1.default();
 // Body parser
 server.app.use(body_parser_1.default.urlencoded({ extended: true }));
 server.app.use(body_parser_1.default.json());
+// Configurar cors
+server.app.use(cors_1.default({ origin: true, credentials: true }));
 // Routes
 server.app.use('/clientes', cliente_1.default);
 server.app.use('/vestidos', vestido_1.default);
