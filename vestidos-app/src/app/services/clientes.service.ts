@@ -16,4 +16,20 @@ export class ClientesService {
   getClientes() {
     return this.http.get<RespuestaClientes>(`${URL}/clientes`);
   }
+
+  creaCliente( cliente) {
+    return new Promise( resolve => {
+
+        this.http.post(`${URL}/clientes/create`, cliente)
+          .subscribe( resp => {
+            console.log(resp);
+            resolve(true);
+          })
+    });
+  }
+
+  borrarCliente() {
+    console.log("Cliente borrado");
+    
+  }
 }
