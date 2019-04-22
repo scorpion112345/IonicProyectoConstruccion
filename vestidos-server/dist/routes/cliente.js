@@ -43,11 +43,23 @@ clienteRoutes.get('/', (req, res) => {
 });
 clienteRoutes.get('/:id', (req, res) => {
     const id = req.params.id;
-    pool.query('SELECT * FROM cliente, vestidos WHERE cliente.id = ? AND  cliente.id_vestido = vestidos.id', [id])
+    pool.query('SELECT * FROM cliente WHERE id = ? ', [id])
+        .then((cliente) => {
+        res.json({
+            ok: true,
+            cliente: cliente[0],
+        });
+    }).catch((err) => {
+        res.json(err);
+    });
+});
+clienteRoutes.get('/delete/:id', (req, res) => {
+    const id = req.params.id;
+    pool.query('DELETE FROM cliente WHERE cliente.id = ?', [id])
         .then((clientes) => {
         res.json({
             ok: true,
-            clientes,
+            mensaje: 'Borrado correctamente',
         });
     }).catch((err) => {
         res.json(err);

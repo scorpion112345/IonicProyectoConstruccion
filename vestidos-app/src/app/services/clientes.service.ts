@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { RespuestaClientes } from '../interfaces/interfaces';
@@ -12,6 +12,9 @@ const URL = environment.url;
 export class ClientesService {
 
   constructor( private http: HttpClient) { }
+
+  clienteEliminado = new EventEmitter<boolean>();
+
 
   getClientes() {
     return this.http.get<RespuestaClientes>(`${URL}/clientes`);
@@ -28,8 +31,18 @@ export class ClientesService {
     });
   }
 
-  borrarCliente() {
-    console.log("Cliente borrado");
+  getCliente( id: string) {
+    return this.http.get<RespuestaClientes>(`${URL}/clientes/${id}`);
+  }
+
+  borrarCliente(idBorrar: string) {
+    return new Promise( resolve => {
+      this.http.get<RespuestaClientes>(`${URL}/clientes/delete/${idBorrar}`)
+        .subscribe( resp => {
+          console.log(resp);
+          resolve(true);
+        })
+  });
     
   }
 }

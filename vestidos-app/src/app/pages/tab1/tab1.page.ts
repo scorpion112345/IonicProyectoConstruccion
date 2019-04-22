@@ -13,7 +13,7 @@ import { UiServiceService } from '../../services/ui-service.service';
 export class Tab1Page implements OnInit{
 
   @ViewChild(IonSegment) segment: IonSegment;
-  @ViewChild('list') lista: IonList;
+
 
 
 
@@ -59,36 +59,6 @@ export class Tab1Page implements OnInit{
       });
   }
 
-  onClick( id ){
-    console.log( id);
-    
-  }
-
-  async borrarCliente(idBorrar) {
-    const alert = await this.alertController.create({
-      header: 'Advertencia',
-      message: 'Seguro que deseas eliminar este cliente?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            this.lista.closeSlidingItems();
-          }
-        }, {
-          text: 'Aceptar',
-          handler: async (res) => {
-            await this.clientesService.borrarCliente();
-            this.lista.closeSlidingItems();
-
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-    
-  }
+ 
 
 }

@@ -1,0 +1,32 @@
+
+<ion-list class="animated fadeIn fast"  #list >
+  
+<ion-item-sliding *ngFor="let cliente of clientes"> 
+
+    <ion-item 
+                (click)="verDetalle(cliente.id)">
+        <ion-icon color="primary" slot="start" name="contact"></ion-icon>
+      <ion-label>
+        <h3>
+            <b>{{ cliente.nombre }} {{ cliente.apellidos }}</b>
+        </h3>
+        <p>
+            {{ cliente.telefono }}
+          </p>
+      </ion-label> 
+    </ion-item>
+
+    <ion-item-options >
+         
+       </ion-item-options>
+   
+       <ion-item-options side="end">
+           <ion-item-option color="danger" (click)="borrarCliente(cliente.id)">
+               <ion-icon slot="icon-only" name="trash"></ion-icon>                
+           </ion-item-option>
+
+       </ion-item-options>
+
+</ion-item-sliding> 
+  </ion-list>
+  
