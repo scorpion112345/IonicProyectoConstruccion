@@ -1,6 +1,8 @@
 import { ClientesService } from './../../services/clientes.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Cliente } from '../../interfaces/interfaces';
+import { Cliente, Vestido } from '../../interfaces/interfaces';
+import { ModalController } from '@ionic/angular';
+import { VestidosService } from '../../services/vestidos.service';
 
 @Component({
   selector: 'app-cliente-detalle',
@@ -9,21 +11,38 @@ import { Cliente } from '../../interfaces/interfaces';
 })
 export class ClienteDetalleComponent implements OnInit {
 
-  @Input() id;
-  cliente: Cliente = {};
+  @Input() cliente: Cliente;
+  vestido: Vestido = {};
 
-  constructor( private clientesService: ClientesService) { }
+
+  constructor( private clientesService: ClientesService,
+              private modalCtrl: ModalController,
+              private vestidosService: VestidosService) { }
 
   ngOnInit() {
-    console.log(this.id);
-    this.clientesService.getCliente( this.id )
-      .subscribe( (cli: any) => {
-        console.log(cli.cliente);
-        
-       this.cliente = cli.cliente;
-        //console.log(this.cliente);
-      })
+    console.log('Cliente',this.cliente);
+      this.getInfoVestido();
+  }
 
+  regresar() {
+    this.modalCtrl.dismiss();
+  }
+
+  
+
+
+  getInfoVestido() {
+    this.vestidosService.getVestido( this.cliente.id_vestido)
+        .subscribe( vestido => {
+          this.vestido = vestido.vestidos[0];
+          console.log('Vestido', this.vestido);
+        })
+  }
+
+
+  vestidoDetalle( idVestido) {
+    console.log(idVestido);
+    
   }
 
 }

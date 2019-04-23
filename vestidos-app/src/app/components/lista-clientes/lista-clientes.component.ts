@@ -3,6 +3,7 @@ import { Cliente } from '../../interfaces/interfaces';
 import { ClientesService } from '../../services/clientes.service';
 import { AlertController, IonList, ModalController } from '@ionic/angular';
 import { ClienteDetalleComponent } from '../cliente-detalle/cliente-detalle.component';
+import { UiServiceService } from '../../services/ui-service.service';
 
 @Component({
   selector: 'app-lista-clientes',
@@ -18,15 +19,16 @@ export class ListaClientesComponent implements OnInit {
 
   constructor(private clientesService: ClientesService,
               private alertController: AlertController,
-              private modalCtrl: ModalController) { }
+              private modalCtrl: ModalController,
+              private uiService: UiServiceService) { }
 
   ngOnInit() {}
 
-  async verDetalle( id ){
+  async verDetalle( cliente ){
     const modal = await this.modalCtrl.create({
       component: ClienteDetalleComponent,
       componentProps: {
-        id
+        cliente
       }
     });
     modal.present();
@@ -49,8 +51,12 @@ export class ListaClientesComponent implements OnInit {
           text: 'Aceptar',
           handler: async (res) => {
             await this.clientesService.borrarCliente( idBorrar );
-            this.clientes = this.clientes.filter( cliente => cliente.id != idBorrar);
             this.lista.closeSlidingItems();
+            setTimeout(() => {
+              this.clientes = this.clientes.filter( cliente => cliente.id != idBorrar);
+               this.uiService.presentToast('Cliente borrado con exito');
+            }, 400);
+            
 
           }
         }

@@ -29,8 +29,8 @@ export class VestidosService {
     });
   }
 
-  getVestido( id: string) {
-    return this.http.get<RespuestaVestidos>(`${URL}/Vestidos/${id}`);
+  getVestido( id: number) {
+    return this.http.get<RespuestaVestidos>(`${URL}/vestidos/${id}`);
   }
 
   borrarVestido(idBorrar: string) {

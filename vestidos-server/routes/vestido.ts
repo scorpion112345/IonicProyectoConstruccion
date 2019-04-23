@@ -112,6 +112,22 @@ vestidoRoutes.get('/', (req: any,res: Response) => {
         });
 })
 
+// Obtener vestido por id 
+vestidoRoutes.get('/:id', (req: any,res: Response) => {
+
+    const id = req.params.id;
+    pool.query('SELECT * FROM vestidos WHERE id = ?', [id])
+        .then((vestido: any) => {
+            res.json({
+                ok: true,
+                vestidos: vestido
+            })
+            
+        }).catch((err: any) => {
+            res.json(err);
+        });
+})
+
 
 
 

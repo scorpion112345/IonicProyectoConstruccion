@@ -25,8 +25,7 @@ export class Tab1Page implements OnInit{
   }
 
   constructor( private clientesService: ClientesService,
-              private uiService: UiServiceService,
-              private alertController: AlertController) {
+              private uiService: UiServiceService) {
 
   }
 
@@ -36,17 +35,21 @@ export class Tab1Page implements OnInit{
   }
 
   segmentChanged($event) {
-
+    this.getClientes();
   }
 
   async registro( fRegistro: NgForm ) {
     
-    if (fRegistro.invalid) { return;} 
+    if (fRegistro.invalid) { 
+      this.uiService.alertaInformativa("Debes llenar todos los campos");
+      return;
+    } 
     const valido = await this.clientesService.creaCliente(this.nuevoCliente);
 
     if (valido) {
       this.getClientes();
       this.segment.value = "clientes";
+      this.nuevoCliente = {};
 
     }
   }
@@ -54,10 +57,11 @@ export class Tab1Page implements OnInit{
   getClientes() {
     this.clientesService.getClientes()
       .subscribe( (resp) => {
-        console.log(resp.clientes);
         this.clientes = resp.clientes;
       });
   }
+
+
 
  
 

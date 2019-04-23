@@ -31,7 +31,7 @@ export class ClientesService {
     });
   }
 
-  getCliente( id: string) {
+  getCliente( id: number) {
     return this.http.get<RespuestaClientes>(`${URL}/clientes/${id}`);
   }
 
