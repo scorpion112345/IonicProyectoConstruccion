@@ -1,0 +1,17 @@
+<ion-list class="animated fadeIn fast"  #list >
+  
+    <ion-item-sliding *ngFor="let vestido of vestidos"> 
+        <ion-item>
+            <ion-img src="/assets/icon/wedding-dress.png" slot="start"></ion-img>
+            <ion-label>
+            <h3>
+                <b>{{ vestido.id }} {{ vestido.modelo }}</b>
+            </h3>
+            <p>
+                {{ vestido.tela }} {{ vestido.color}}
+            </p>
+            </ion-label> 
+        </ion-item>
+    </ion-item-sliding> 
+    
+</ion-list>

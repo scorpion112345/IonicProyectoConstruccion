@@ -11,7 +11,7 @@ export interface Cliente {
   telefono?: string;
 }
 
-interface RootObject {
+export interface RespuestaVestidos {
   ok: boolean;
   vestidos: Vestido[];
   mensaje: string;
