@@ -1,0 +1,108 @@
+<ion-content >
+
+<form class="animated fadeIn fast" (ngSubmit)= "registro( fRegistro ) " #fRegistro="ngForm">
+  <ion-grid fixed>
+
+      <ion-row>
+          <ion-col text-center>
+              <h3>Agregar nuevo vestido</h3>
+          </ion-col>
+      </ion-row>
+
+    <ion-row>
+      <ion-col size="12" text-center>
+        <ion-img class="imagen" src="/assets/icon/wedding-dress2.png" ></ion-img>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col >
+
+        <ion-list>
+            <ion-item>
+              <ion-label>Id Cliente</ion-label>
+              <ion-input name="id-cliente"
+                         type="text"
+                         [(ngModel)]="nuevoVestido.id"
+                         required></ion-input>
+            </ion-item>  
+
+            <ion-item>
+              <ion-label>Modelo</ion-label>
+              <ion-input name="modelo"
+                         type="text"
+                         [(ngModel)]="nuevoVestido.modelo"
+                         required></ion-input>   
+            </ion-item>  
+              
+            <ion-item>
+              <ion-label>Color</ion-label>
+              <ion-input name="color"
+                         type="text"
+                         [(ngModel)]="nuevoVestido.color"
+                         required></ion-input>   
+            </ion-item>  
+            
+            <ion-item>
+              <ion-label>Tela</ion-label>
+              <ion-input name="tela"
+                         type="text"
+                         [(ngModel)]="nuevoVestido.tela"
+                         required></ion-input>   
+            </ion-item> 
+            
+            <ion-item>
+              <ion-label>Talla</ion-label>
+              <ion-input name="talla"
+                          type="text"
+                          [(ngModel)]="nuevoVestido.talla"
+                          required></ion-input>   
+            </ion-item> 
+          
+            <ion-item>
+              <ion-label>Complementos</ion-label>
+              <ion-input name="complementos"
+                         type="text"
+                         [(ngModel)]="nuevoVestido.complementos"
+                         required></ion-input>   
+            </ion-item> 
+        
+            <ion-item>
+              <ion-label>Estado</ion-label>
+              <ion-input name="estado"
+                         type="text"
+                         [(ngModel)]="nuevoVestido.estado"
+                         required></ion-input>   
+            </ion-item>   
+
+            <ion-item>
+              <ion-label>Observaciones</ion-label>
+              <ion-input name="observaciones"
+                         type="text"
+                         [(ngModel)]="nuevoVestido.observaciones"
+                         required></ion-input>   
+            </ion-item> 
+
+        </ion-list>
+      
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col >
+            <ion-button class="top-20"
+                        type="submit"
+                        expand='full'
+                        color="tertiary"
+                        shape="round">
+                Crear Vestido
+            </ion-button>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>
+
+
+</ion-content>
+

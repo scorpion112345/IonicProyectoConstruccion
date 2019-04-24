@@ -21,7 +21,7 @@ export class VestidosService {
   creaVestido( vestido ) {
     return new Promise( resolve => {
 
-        this.http.post(`${URL}/vestidos/create`, vestido)
+        this.http.post(`${URL}/vestidos/create/:idCliente`, vestido)
           .subscribe( resp => {
             console.log(resp);
             resolve(true);

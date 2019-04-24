@@ -4,6 +4,9 @@ import { ListaClientesComponent } from './lista-clientes/lista-clientes.componen
 import { IonicModule } from '@ionic/angular';
 import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
 import { ListaVestidosComponent } from './lista-vestidos/lista-vestidos.component';
+import { VestidosFormularioComponent } from './vestidos-formulario/vestidos-formulario.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   entryComponents: [
@@ -12,15 +15,18 @@ import { ListaVestidosComponent } from './lista-vestidos/lista-vestidos.componen
   declarations: [
     ListaVestidosComponent,
     ListaClientesComponent,
-    ClienteDetalleComponent
+    ClienteDetalleComponent,
+    VestidosFormularioComponent
   ],
   exports: [
     ListaVestidosComponent,
-    ListaClientesComponent
+    ListaClientesComponent,
+    VestidosFormularioComponent,
   ],
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    FormsModule
   ]
 })
 export class ComponentsModule { }
