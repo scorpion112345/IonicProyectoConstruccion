@@ -17,16 +17,7 @@ export class Tab2Page implements OnInit{
 
 
   vestidos: Vestido[] = [];
-  nuevoVestido: Vestido = {
-    id: 0,
-    modelo: '',
-    color: '',
-    tela: '',
-    talla: '',
-    complementos: '',
-    estado: '',
-    observaciones: '',
-  }
+
 
   constructor( private vestidosService: VestidosService,
               private uiService: UiServiceService,
@@ -36,22 +27,14 @@ export class Tab2Page implements OnInit{
 
   ngOnInit() {
     this.getVestidos();
+    this.vestidosService.nuevoPost
+    .subscribe( post => {
+      this.getVestidos();
+    } )
   }
 
   segmentChanged($event) {
 
-  }
-
-  async registro( fRegistro: NgForm ) {
-    
-    if (fRegistro.invalid) { return;} 
-    const valido = await this.vestidosService.creaVestido(this.nuevoVestido);
-
-    if (valido) {
-      this.getVestidos();
-      this.segment.value = "vestidos";
-
-    }
   }
 
   getVestidos() {

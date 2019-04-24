@@ -10,7 +10,8 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   entryComponents: [
-    ClienteDetalleComponent
+    ClienteDetalleComponent,
+    VestidosFormularioComponent
   ],
   declarations: [
     ListaVestidosComponent,

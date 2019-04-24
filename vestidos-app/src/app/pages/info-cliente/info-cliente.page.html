@@ -2,10 +2,10 @@
   <ion-toolbar>
 
     <ion-buttons>
-        <ion-button (click)="regresar()">
-            <ion-icon slot="start" name="arrow-round-back"></ion-icon>
-            <ion-label>Regresar</ion-label>
-        </ion-button>
+      <ion-back-button defaultHref="tabs/tab1"
+                        text="Regresar"
+                        icon="arrow-round-back">
+      </ion-back-button>
     </ion-buttons>
 
   </ion-toolbar>
@@ -24,13 +24,15 @@
 
       </ion-list>
 
-      <ion-list *ngIf="cliente.id_vestido != null">
+      
+<div *ngIf="cliente.id_vestido">     
+      <ion-list >
           <ion-list-header>
             <ion-label>Vestido</ion-label>
           </ion-list-header>
   
-          <ion-item><b>Modelo: </b>   {{ vestido.modelo }} </ion-item>
-          <ion-item><b>Estado: </b>   {{ vestido.estado }} </ion-item>
+          <ion-item><b>Modelo: </b>   {{ cliente.modelo }} </ion-item>
+          <ion-item><b>Estado: </b>   {{ cliente.estado }} </ion-item>
 
           <p text-center>
               <ion-button fill="outline" slot="end" (click)="vestidoDetalle( cliente.id_vestido)">Ver mas</ion-button>
@@ -73,29 +75,25 @@
 
   
         </ion-list>
+      </div>      
 
-        <app-vestidos-formulario></app-vestidos-formulario>
-
- 
-</ion-content>
-
-<ion-footer no-border
-          *ngIf="cliente.id_vestido == null">
-  <ion-toolbar>
-      <ion-grid fixed >
+      <ion-grid *ngIf="!cliente.id_vestido">
           <ion-row>
         
             <ion-col size="6">
-                <ion-button *ngIf="cliente.id_vestido == null"
-                             shape="round"
-                            expand="block"> 
+                <ion-button 
+                            shape="round"
+                            expand="block"
+                            (click)="formularioVestido(cliente.id)"
+                            > 
                             Agregar Vestido 
                 </ion-button>
             </ion-col>
         
             <ion-col size="6">
         
-                <ion-button shape="round"
+                <ion-button 
+                            shape="round"
                             expand="block"> 
                             Agregar Cita 
                 </ion-button>
@@ -103,5 +101,8 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-  </ion-toolbar>
-</ion-footer>
+ 
+</ion-content>
+
+   
+

@@ -6,7 +6,7 @@ const pool = require('../database');
 
 
 // Crear un nuevo vestido
-vestidoRoutes.post('/create/:idCliente', [verificaToken], (req: any,res: Response) => {
+vestidoRoutes.post('/create/:idCliente', (req: any,res: Response) => {
 
     const body = req.body;
     const idCliente = req.params.idCliente;
@@ -20,10 +20,7 @@ vestidoRoutes.post('/create/:idCliente', [verificaToken], (req: any,res: Respons
         estado: body.estado,
         observaciones: body.observaciones || ''
     };
-
-    console.log(parseInt(idCliente));
     
-
 
     pool.query('INSERT INTO vestidos set ?', [newVestido])
         .then((resp: any) => {
@@ -35,7 +32,6 @@ vestidoRoutes.post('/create/:idCliente', [verificaToken], (req: any,res: Respons
                             ok: true,
                             mensaje: "Vestido y cliente creado correctamente"
                         }) 
-                        console.log(cliente);
                         
                     }).catch((err: any) => {
                         res.json(err);
@@ -55,7 +51,7 @@ vestidoRoutes.post('/create/:idCliente', [verificaToken], (req: any,res: Respons
 
 
 // Actualizar vestidos
-vestidoRoutes.post('/update/:id', [verificaToken],  (req: any,res: Response) => {
+vestidoRoutes.post('/update/:id',  (req: any,res: Response) => {
 
     const body = req.body;
     const id = req.params.id;

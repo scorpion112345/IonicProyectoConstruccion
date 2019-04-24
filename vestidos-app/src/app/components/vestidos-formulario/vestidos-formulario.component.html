@@ -1,7 +1,21 @@
-<ion-content >
+<ion-header no-border>
+    <ion-toolbar>
+  
+      <ion-buttons>
+          <ion-button (click)="regresar()">
+              <ion-icon slot="start" name="arrow-round-back"></ion-icon>
+              <ion-label>Regresar</ion-label>
+          </ion-button>
+      </ion-buttons>
+  
+    </ion-toolbar>
+  </ion-header>
+
+
+<ion-content padding>
 
 <form class="animated fadeIn fast" (ngSubmit)= "registro( fRegistro ) " #fRegistro="ngForm">
-  <ion-grid fixed>
+  <ion-grid fixed >
 
       <ion-row>
           <ion-col text-center>
@@ -11,71 +25,139 @@
 
     <ion-row>
       <ion-col size="12" text-center>
-        <ion-img class="imagen" src="/assets/icon/wedding-dress2.png" ></ion-img>
+        <img class="imagen" src="/assets/icon/wedding-dress2.png" ><img>
       </ion-col>
     </ion-row>
 
 
     <ion-row>
+
       <ion-col >
-
-        <ion-list>
-            <ion-item>
-              <ion-label>Id Cliente</ion-label>
-              <ion-input name="id-cliente"
-                         type="text"
-                         [(ngModel)]="nuevoVestido.id"
-                         required></ion-input>
-            </ion-item>  
-
-            <ion-item>
-              <ion-label>Modelo</ion-label>
+          <ion-item>
+              <ion-label position="floating">Modelo</ion-label>
               <ion-input name="modelo"
                          type="text"
                          [(ngModel)]="nuevoVestido.modelo"
                          required></ion-input>   
-            </ion-item>  
-              
+            </ion-item> 
+      </ion-col >
+
+      <ion-col >
+           
             <ion-item>
-              <ion-label>Color</ion-label>
-              <ion-input name="color"
-                         type="text"
-                         [(ngModel)]="nuevoVestido.color"
-                         required></ion-input>   
-            </ion-item>  
-            
-            <ion-item>
-              <ion-label>Tela</ion-label>
+                <ion-label position="floating">Color</ion-label>
+                <ion-input name="color"
+                           type="text"
+                           [(ngModel)]="nuevoVestido.color"
+                           required></ion-input>   
+              </ion-item>  
+      </ion-col >
+  </ion-row>
+
+  <ion-row>
+      <ion-col >
+          <ion-item>
+              <ion-label position="floating">Tela</ion-label>
               <ion-input name="tela"
-                         type="text"
-                         [(ngModel)]="nuevoVestido.tela"
-                         required></ion-input>   
+                        type="text"
+                        [(ngModel)]="nuevoVestido.tela"
+                        required></ion-input>   
             </ion-item> 
-            
-            <ion-item>
-              <ion-label>Talla</ion-label>
-              <ion-input name="talla"
-                          type="text"
-                          [(ngModel)]="nuevoVestido.talla"
-                          required></ion-input>   
-            </ion-item> 
-          
-            <ion-item>
-              <ion-label>Complementos</ion-label>
-              <ion-input name="complementos"
-                         type="text"
-                         [(ngModel)]="nuevoVestido.complementos"
-                         required></ion-input>   
-            </ion-item> 
-        
-            <ion-item>
-              <ion-label>Estado</ion-label>
+      </ion-col >
+
+      <ion-col >
+
+          <ion-item>
+              <ion-label position="floating">Estado</ion-label>
               <ion-input name="estado"
                          type="text"
                          [(ngModel)]="nuevoVestido.estado"
                          required></ion-input>   
             </ion-item>   
 
+      </ion-col >
+</ion-row>
+
+<ion-row>
+    <ion-col >
+            <ion-list-header>
+                <ion-label><h2>tallas</h2></ion-label>
+              </ion-list-header> 
+    </ion-col >
+</ion-row>
+
+<ion-row class="radios" text-center>
+
+   <ion-radio-group  [(ngModel)]="nuevoVestido.talla" name="talla" required> 
+      <ion-col size="2" >
+            <ion-label>Xs</ion-label>
+            <ion-radio  value="Xs"></ion-radio>
+      </ion-col >
+      <ion-col size="2" >
+              <ion-label>s</ion-label>
+              <ion-radio  value="s"></ion-radio>
+      </ion-col >
+      <ion-col size="2" >
+          <ion-label>M</ion-label>
+          <ion-radio  value="M"></ion-radio>
+    </ion-col >
+    <ion-col size="2" >
+        <ion-label>G</ion-label>
+        <ion-radio  value="G"></ion-radio>
+    </ion-col >
+    <ion-col size="2" >
+        <ion-label>XL</ion-label>
+        <ion-radio  value="XL"></ion-radio>
+    </ion-col >
+    <ion-col size="2" >
+        <ion-label>XXL</ion-label>
+        <ion-radio  value="XXL"></ion-radio>
+    </ion-col >
+  </ion-radio-group> 
+</ion-row>
+
+
+
+<ion-row>
+    <ion-col >
+        <ion-item>
+            <ion-label position="floating" >Complementos</ion-label>
+            <ion-input name="complementos"
+                      type="text"
+                      [(ngModel)]="nuevoVestido.complementos"
+                      ></ion-input>   
+          </ion-item>  
+    </ion-col >
+
+</ion-row>
+
+<ion-item>
+    <ion-label position="floating">Descripcion</ion-label>
+    <ion-textarea 
+        [(ngModel)]="nuevoVestido.observaciones" name="observaciones" ></ion-textarea>
+   </ion-item>
+  
+  <ion-row>
+      <ion-col >
+          <ion-button class="top-20"
+                      type="submit"
+                      expand='full'
+                      color="tertiary"
+                      shape="round">
+              Crear Vestido
+          </ion-button>
+      </ion-col>
+  </ion-row> 
+<!--             
+         
+  
+  
+          
+         
+            
+            
+         
+           
             <ion-item>
               <ion-label>Observaciones</ion-label>
               <ion-input name="observaciones"
@@ -87,20 +169,13 @@
         </ion-list>
       
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <ion-row>
-        <ion-col >
-            <ion-button class="top-20"
-                        type="submit"
-                        expand='full'
-                        color="tertiary"
-                        shape="round">
-                Crear Vestido
-            </ion-button>
-        </ion-col>
-    </ion-row>
+    
+
+
   </ion-grid>
+
 </form>
 
 

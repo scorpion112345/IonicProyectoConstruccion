@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Cliente } from '../../interfaces/interfaces';
 import { ClientesService } from '../../services/clientes.service';
-import { AlertController, IonList, ModalController } from '@ionic/angular';
-import { ClienteDetalleComponent } from '../cliente-detalle/cliente-detalle.component';
+import { AlertController, IonList, ModalController, NavController } from '@ionic/angular';
 import { UiServiceService } from '../../services/ui-service.service';
 
 @Component({
@@ -19,20 +18,15 @@ export class ListaClientesComponent implements OnInit {
 
   constructor(private clientesService: ClientesService,
               private alertController: AlertController,
-              private modalCtrl: ModalController,
-              private uiService: UiServiceService) { }
+              private uiService: UiServiceService,
+              private navCtrl: NavController) { }
 
   ngOnInit() {}
 
-  async verDetalle( cliente ){
-    const modal = await this.modalCtrl.create({
-      component: ClienteDetalleComponent,
-      componentProps: {
-        cliente
-      }
-    });
-    modal.present();
-    
+  async verDetalle( id ) {
+    //console.log(id)
+    this.navCtrl.navigateForward(`tabs/tab1/infoCliente/${id}`);
+
   }
 
   async borrarCliente(idBorrar) {

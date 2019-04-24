@@ -10,6 +10,7 @@ const URL = environment.url;
 })
 export class VestidosService {
 
+   nuevoPost = new EventEmitter();
   constructor( private http: HttpClient ) { }
 
   vestidoEliminado = new EventEmitter<boolean>();
@@ -18,12 +19,13 @@ export class VestidosService {
     return this.http.get<RespuestaVestidos>(`${URL}/vestidos`);
   }
 
-  creaVestido( vestido ) {
+  creaVestido( vestido, idCliente ) {
     return new Promise( resolve => {
 
-        this.http.post(`${URL}/vestidos/create/:idCliente`, vestido)
+        this.http.post(`${URL}/vestidos/create/${idCliente}`, vestido)
           .subscribe( resp => {
             console.log(resp);
+            this.nuevoPost.emit();
             resolve(true);
           })
     });

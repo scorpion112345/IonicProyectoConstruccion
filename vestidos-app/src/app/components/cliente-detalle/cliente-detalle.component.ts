@@ -10,6 +10,7 @@ import { VestidosService } from '../../services/vestidos.service';
   styleUrls: ['./cliente-detalle.component.scss'],
 })
 export class ClienteDetalleComponent implements OnInit {
+  
 
   @Input() cliente: Cliente;
   vestido: Vestido = {};
@@ -28,6 +29,7 @@ export class ClienteDetalleComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
 
+  
   
 
 

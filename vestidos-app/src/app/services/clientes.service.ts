@@ -37,7 +37,7 @@ export class ClientesService {
 
   borrarCliente(idBorrar: string) {
     return new Promise( resolve => {
-      this.http.get<RespuestaClientes>(`${URL}/clientes/delete/${idBorrar}`)
+      this.http.post<RespuestaClientes>(`${URL}/clientes/delete/${idBorrar}`)
         .subscribe( resp => {
           console.log(resp);
           resolve(true);

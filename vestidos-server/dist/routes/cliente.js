@@ -43,24 +43,71 @@ clienteRoutes.get('/', (req, res) => {
 });
 clienteRoutes.get('/:id', (req, res) => {
     const id = req.params.id;
-    pool.query('SELECT * FROM cliente WHERE id = ? ', [id])
+    pool.query('SELECT cliente.id, id_vestido, nombre, apellidos, telefono, modelo, estado from cliente INNER JOIN vestidos ON cliente.id_vestido = vestidos.id WHERE cliente.id =  ? ', [id])
         .then((cliente) => {
-        res.json({
-            ok: true,
-            cliente: cliente[0],
-        });
+        //console.log(cliente);
+        if (cliente.length > 0) {
+            res.json({
+                ok: true,
+                clientes: cliente[0],
+            });
+        }
+        else {
+            pool.query('SELECT * from cliente WHERE id =  ? ', [id])
+                .then((cliente) => {
+                // console.log(cliente);
+                if (cliente.length > 0) {
+                    res.json({
+                        ok: true,
+                        clientes: cliente[0],
+                        mensaje: 'Se ha encontrado el cliente'
+                    });
+                }
+                else {
+                    res.json({
+                        ok: true,
+                        mensaje: 'No se encontro el cliente',
+                    });
+                }
+            }).catch((err) => {
+                res.json(err);
+            });
+        }
     }).catch((err) => {
         res.json(err);
     });
 });
-clienteRoutes.get('/delete/:id', (req, res) => {
+clienteRoutes.post('/delete/:id', (req, res) => {
     const id = req.params.id;
-    pool.query('DELETE FROM cliente WHERE cliente.id = ?', [id])
-        .then((clientes) => {
-        res.json({
-            ok: true,
-            mensaje: 'Borrado correctamente',
-        });
+    pool.query(' DELETE cliente, vestidos from cliente JOIN vestidos ON cliente.id_vestido = vestidos.id WHERE cliente.id = ?', [id])
+        .then((cliVest) => {
+        console.log(cliVest);
+        if (cliVest.affectedRows > 0) {
+            res.json({
+                ok: true,
+                mensaje: "Cliente y vestido borrado correctamente"
+            });
+        }
+        else {
+            pool.query(' DELETE FROM cliente WHERE cliente.id = ?', [id])
+                .then((cliVest) => {
+                console.log(cliVest);
+                if (cliVest.affectedRows > 0) {
+                    res.json({
+                        ok: true,
+                        mensaje: "Cliente borrado correctamente"
+                    });
+                }
+                else {
+                    res.json({
+                        ok: true,
+                        mensaje: "no se encontro nada"
+                    });
+                }
+            }).catch((err) => {
+                res.json(err);
+            });
+        }
     }).catch((err) => {
         res.json(err);
     });

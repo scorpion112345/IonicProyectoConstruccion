@@ -1,11 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const autenticacion_1 = require("../middlewares/autenticacion");
 const vestidoRoutes = express_1.Router();
 const pool = require('../database');
 // Crear un nuevo vestido
-vestidoRoutes.post('/create/:idCliente', [autenticacion_1.verificaToken], (req, res) => {
+vestidoRoutes.post('/create/:idCliente', (req, res) => {
     const body = req.body;
     const idCliente = req.params.idCliente;
     const newVestido = {
@@ -17,7 +16,6 @@ vestidoRoutes.post('/create/:idCliente', [autenticacion_1.verificaToken], (req, 
         estado: body.estado,
         observaciones: body.observaciones || ''
     };
-    console.log(parseInt(idCliente));
     pool.query('INSERT INTO vestidos set ?', [newVestido])
         .then((resp) => {
         console.log(parseInt(resp.insertId));
@@ -28,7 +26,6 @@ vestidoRoutes.post('/create/:idCliente', [autenticacion_1.verificaToken], (req, 
                     ok: true,
                     mensaje: "Vestido y cliente creado correctamente"
                 });
-                console.log(cliente);
             }).catch((err) => {
                 res.json(err);
             });
@@ -44,7 +41,7 @@ vestidoRoutes.post('/create/:idCliente', [autenticacion_1.verificaToken], (req, 
     });
 });
 // Actualizar vestidos
-vestidoRoutes.post('/update/:id', [autenticacion_1.verificaToken], (req, res) => {
+vestidoRoutes.post('/update/:id', (req, res) => {
     const body = req.body;
     const id = req.params.id;
     const newVestido = {
