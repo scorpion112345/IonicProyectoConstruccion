@@ -24,7 +24,7 @@ CREATE TABLE vestidos(
      color VARCHAR(15) NOT NULL,
      tela VARCHAR(15) NOT NULL,
      talla ENUM('Xs', 's', 'M', 'G','XL','XXL') NOT NULL,
-     complementos VARCHAR(15),
+     complementos VARCHAR(60),
      estado VARCHAR(50) NOT NULL,     
      observaciones TEXT
 );
@@ -34,6 +34,9 @@ ALTER TABLE vestidos
 
   ALTER TABLE vestidos
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;  
+
+ ALTER TABLE vestidos
+    MODIFY complementos VARCHAR(60); 
 
 DESCRIBE vestidos;
 
@@ -70,6 +73,9 @@ ALTER TABLE pago
 
   ALTER TABLE pago
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 2;  
+
+  ALTER TABLE pago
+    MODIFY  fecha DATE NOT NULL;  
 
 DESCRIBE pago;
 

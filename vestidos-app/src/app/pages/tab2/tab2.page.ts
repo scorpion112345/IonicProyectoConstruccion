@@ -27,8 +27,8 @@ export class Tab2Page implements OnInit{
 
   ngOnInit() {
     this.getVestidos();
-    this.vestidosService.nuevoPost
-    .subscribe( post => {
+    this.vestidosService.nuevoVestido
+    .subscribe( resp => {
       this.getVestidos();
     } )
   }

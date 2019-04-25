@@ -1,7 +1,7 @@
 <ion-list class="animated fadeIn fast"  #list >
   
     <ion-item-sliding *ngFor="let vestido of vestidos"> 
-        <ion-item>
+        <ion-item (click)="verDetalle( vestido.id)">
             <ion-img src="/assets/icon/wedding-dress.png" slot="start"></ion-img>
             <ion-label>
             <h3>

@@ -3,7 +3,7 @@ import { ClientesService } from './../../services/clientes.service';
 import { ActivatedRoute } from '@angular/router';
 import { Cliente, Vestido } from '../../interfaces/interfaces';
 import { VestidosService } from '../../services/vestidos.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { VestidosFormularioComponent } from '../../components/vestidos-formulario/vestidos-formulario.component';
 
 @Component({
@@ -19,14 +19,19 @@ export class InfoClientePage implements OnInit {
   constructor(  private route: ActivatedRoute,
                 private clienteService: ClientesService,
                 private vestidosService: VestidosService,
-                 private modalCtrl: ModalController) { 
-
-                  
+                 private modalCtrl: ModalController,
+                 private navCtrl: NavController) { 
                 }
 
   ngOnInit() {
     const idCliente = this.route.snapshot.paramMap.get('id');
     this.getCliente(idCliente);
+
+    this.vestidosService.nuevoVestido
+      .subscribe( () => {
+        this.getCliente(idCliente);
+      })
+      
   }
 
 
@@ -41,8 +46,7 @@ export class InfoClientePage implements OnInit {
   
 
   vestidoDetalle( idVestido) {
-    console.log(idVestido);
-    
+    this.navCtrl.navigateRoot(`tabs/tab2/infoVestido/${idVestido}`, { animated: true});
   }
 
   async formularioVestido(id){
@@ -54,6 +58,9 @@ export class InfoClientePage implements OnInit {
       }
     });
     modal.present();
+  }
+
+  formularioCita() {
   }
 
 

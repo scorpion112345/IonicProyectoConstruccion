@@ -10,7 +10,7 @@ const URL = environment.url;
 })
 export class VestidosService {
 
-   nuevoPost = new EventEmitter();
+   nuevoVestido = new EventEmitter<boolean>();
   constructor( private http: HttpClient ) { }
 
   vestidoEliminado = new EventEmitter<boolean>();
@@ -25,7 +25,7 @@ export class VestidosService {
         this.http.post(`${URL}/vestidos/create/${idCliente}`, vestido)
           .subscribe( resp => {
             console.log(resp);
-            this.nuevoPost.emit();
+            this.nuevoVestido.emit(true);
             resolve(true);
           })
     });
@@ -44,5 +44,17 @@ export class VestidosService {
         })
   });
     
+  }
+
+  actualizaVestido(vestido, idVestido) {
+    return new Promise( resolve => {
+
+      this.http.post(`${URL}/vestidos/update/${idVestido}`, vestido)
+        .subscribe( resp => {
+          console.log(resp);
+          //this.nuevoPost.emit();
+          resolve(true);
+        })
+  });
   }
 }

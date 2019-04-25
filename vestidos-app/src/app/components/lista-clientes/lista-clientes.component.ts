@@ -49,7 +49,7 @@ export class ListaClientesComponent implements OnInit {
             setTimeout(() => {
               this.clientes = this.clientes.filter( cliente => cliente.id != idBorrar);
                this.uiService.presentToast('Cliente borrado con exito');
-            }, 400);
+            }, 350);
             
 
           }

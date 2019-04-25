@@ -1,0 +1,93 @@
+<ion-header no-border>
+  <ion-toolbar>
+
+      <ion-buttons>
+          <ion-back-button defaultHref="tabs/tab2"
+                            text="Regresar"
+                            icon="arrow-round-back">
+          </ion-back-button>
+        </ion-buttons>
+    <!-- Default Segment -->
+<ion-segment >
+    <ion-segment-button value="vestido">
+      <ion-label>Vestido</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="actualizar">
+      <ion-label>Actualizar</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+    
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+<ion-grid *ngIf="segment.value === 'vestido'">
+  <ion-row>
+    <ion-col >
+        <ion-item lines="none">
+            <ion-label text-center>
+                <h2>  <b>MODELO:  </b>  {{ vestido.modelo }}</h2>
+              </ion-label>
+        </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+
+<!-- Actualizar usuario -->
+
+<form class="animated fadeIn fast" *ngIf="segment.value === 'actualizar'" (ngSubmit)= "actualizaVestido( fRegistro ) " #fRegistro="ngForm">
+    <ion-grid fixed >
+  
+        <ion-row *ngIf="!actualizar">
+            <ion-col text-center>
+                <h3>Actualizar vestido</h3>
+            </ion-col>
+        </ion-row>
+  
+      <ion-row>
+        <ion-col size="12" text-center>
+          <img class="imagen" src="/assets/icon/wedding-dress2.png" ><img>
+        </ion-col>
+      </ion-row>
+
+  
+    <ion-row>
+        <ion-col >
+  
+            <ion-item>
+                <ion-label position="floating">Estado</ion-label>
+                <ion-input name="estado"
+                           type="text"
+                           [(ngModel)]="vestido.estado"
+                           required></ion-input>   
+              </ion-item>   
+  
+        </ion-col >
+  </ion-row>
+ 
+  
+  <ion-item>
+      <ion-label position="floating">Descripcion</ion-label>
+      <ion-textarea 
+          [(ngModel)]="vestido.observaciones" name="observaciones" ></ion-textarea>
+     </ion-item>
+    
+    <ion-row>
+        <ion-col >
+            <ion-button class="top-20"
+                        type="submit"
+                        expand='full'
+                        color="tertiary"
+                        shape="round">
+                Actualizar vestido
+            </ion-button>
+        </ion-col>
+    </ion-row> 
+  </ion-grid>
+</form>
+
+
+</ion-content>

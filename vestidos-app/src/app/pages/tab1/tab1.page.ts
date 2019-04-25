@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClientesService } from '../../services/clientes.service';
 import { Cliente } from '../../interfaces/interfaces';
-import { IonSegment, AlertController, IonList } from '@ionic/angular';
+import { IonSegment } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { UiServiceService } from '../../services/ui-service.service';
 
@@ -24,6 +24,8 @@ export class Tab1Page implements OnInit{
     telefono: '',
   }
 
+  creando: boolean = false;
+
   constructor( private clientesService: ClientesService,
               private uiService: UiServiceService) {
 
@@ -44,14 +46,18 @@ export class Tab1Page implements OnInit{
       this.uiService.alertaInformativa("Debes llenar todos los campos");
       return;
     } 
+
+    this.creando = true;
     const valido = await this.clientesService.creaCliente(this.nuevoCliente);
 
     if (valido) {
+
       this.getClientes();
       this.segment.value = "clientes";
+      this.uiService.presentToast('Ciente creado con exito');
       this.nuevoCliente = {};
-
     }
+    this.creando = false;
   }
 
   getClientes() {

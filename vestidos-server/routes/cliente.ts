@@ -76,7 +76,7 @@ clienteRoutes.get('/:id' ,(req,res:Response) => {
 });
 
 
-clienteRoutes.post('/delete/:id' ,(req,res:Response) => {
+clienteRoutes.get('/delete/:id' ,(req,res:Response) => {
     const id = req.params.id
     pool.query(' DELETE cliente, vestidos from cliente JOIN vestidos ON cliente.id_vestido = vestidos.id WHERE cliente.id = ?',[id])
     .then((cliVest: any) => {

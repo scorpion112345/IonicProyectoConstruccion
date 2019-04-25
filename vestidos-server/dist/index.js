@@ -10,6 +10,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const vestido_1 = __importDefault(require("./routes/vestido"));
 const usuario_1 = __importDefault(require("./routes/usuario"));
 const citas_1 = __importDefault(require("./routes/citas"));
+const pagos_1 = __importDefault(require("./routes/pagos"));
 const server = new server_1.default();
 // Body parser
 server.app.use(body_parser_1.default.urlencoded({ extended: true }));
@@ -21,6 +22,7 @@ server.app.use('/clientes', cliente_1.default);
 server.app.use('/vestidos', vestido_1.default);
 server.app.use('/user', usuario_1.default);
 server.app.use('/citas', citas_1.default);
+server.app.use('/pagos', pagos_1.default);
 // Levantar servidor
 server.start(() => {
     console.log(`Servidor corriendo en puerto`, server.port);

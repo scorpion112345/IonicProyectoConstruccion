@@ -17,7 +17,7 @@
 <form class="animated fadeIn fast" (ngSubmit)= "registro( fRegistro ) " #fRegistro="ngForm">
   <ion-grid fixed >
 
-      <ion-row>
+      <ion-row *ngIf="!actualizar">
           <ion-col text-center>
               <h3>Agregar nuevo vestido</h3>
           </ion-col>
@@ -87,32 +87,11 @@
 </ion-row>
 
 <ion-row class="radios" text-center>
-
    <ion-radio-group  [(ngModel)]="nuevoVestido.talla" name="talla" required> 
-      <ion-col size="2" >
-            <ion-label>Xs</ion-label>
-            <ion-radio  value="Xs"></ion-radio>
+      <ion-col size="2" *ngFor="let talla of tallas">
+            <ion-label>{{ talla }}</ion-label>
+            <ion-radio  [value]="talla"></ion-radio>
       </ion-col >
-      <ion-col size="2" >
-              <ion-label>s</ion-label>
-              <ion-radio  value="s"></ion-radio>
-      </ion-col >
-      <ion-col size="2" >
-          <ion-label>M</ion-label>
-          <ion-radio  value="M"></ion-radio>
-    </ion-col >
-    <ion-col size="2" >
-        <ion-label>G</ion-label>
-        <ion-radio  value="G"></ion-radio>
-    </ion-col >
-    <ion-col size="2" >
-        <ion-label>XL</ion-label>
-        <ion-radio  value="XL"></ion-radio>
-    </ion-col >
-    <ion-col size="2" >
-        <ion-label>XXL</ion-label>
-        <ion-radio  value="XXL"></ion-radio>
-    </ion-col >
   </ion-radio-group> 
 </ion-row>
 
@@ -120,16 +99,15 @@
 
 <ion-row>
     <ion-col >
-        <ion-item>
-            <ion-label position="floating" >Complementos 1</ion-label>
-            <ion-input name="complementos"
-                      type="text"
-                      [(ngModel)]="nuevoVestido.complementos"
-                      ></ion-input>   
-          </ion-item>  
+            <ion-list>
+                    <ion-item *ngFor="let complemento of complementos">
+                      <ion-label>{{complemento.val}}</ion-label>
+                      <ion-checkbox slot="end" [(ngModel)]="complemento.isChecked" name="complemento"></ion-checkbox>
+                    </ion-item>
+                  </ion-list>
     </ion-col >
 
-</ion-row>
+</ion-row> 
 
 <ion-item>
     <ion-label position="floating">Descripcion</ion-label>
@@ -147,34 +125,9 @@
               Crear Vestido
           </ion-button>
       </ion-col>
-  </ion-row> 
-<!--             
-         
-  
-  
-          
-         
-            
-            
-         
-           
-            <ion-item>
-              <ion-label>Observaciones</ion-label>
-              <ion-input name="observaciones"
-                         type="text"
-                         [(ngModel)]="nuevoVestido.observaciones"
-                         required></ion-input>   
-            </ion-item> 
+  </ion-row>            
 
-        </ion-list>
-      
-      </ion-col>
-    </ion-row> -->
-
-    
-
-
-  </ion-grid>
+</ion-grid>
 
 </form>
 

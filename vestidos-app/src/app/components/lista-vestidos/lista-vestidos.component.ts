@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { IonList, AlertController, ModalController } from '@ionic/angular';
+import { IonList, NavController } from '@ionic/angular';
 import { Vestido } from 'src/app/interfaces/interfaces';
-import { VestidosService } from 'src/app/services/vestidos.service';
+
 
 @Component({
   selector: 'app-lista-vestidos',
@@ -15,10 +15,11 @@ export class ListaVestidosComponent implements OnInit {
   @Input() vestidos: Vestido[] = [];
 
 
-  constructor( private clientesService: VestidosService,
-    private alertController: AlertController,
-    private modalCtrl: ModalController ) { }
+  constructor( private navCtrl: NavController) { }
 
   ngOnInit() {}
 
+  verDetalle( id) {
+    this.navCtrl.navigateRoot(`tabs/tab2/infoVestido/${id}`);
+  }
 }

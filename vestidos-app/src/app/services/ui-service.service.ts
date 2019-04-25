@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController, LoadingController } from '@ionic/angular';
 
 
 @Injectable({
@@ -7,9 +7,11 @@ import { AlertController, ToastController } from '@ionic/angular';
 })
 export class UiServiceService {
 
+ loading;
 
   constructor(private alertController: AlertController,
-    private toastController: ToastController) { }
+    private toastController: ToastController,
+    public loadingController: LoadingController) { }
 
     async alertaInformativa( message: string) {
       const alert = await this.alertController.create({
@@ -28,6 +30,15 @@ export class UiServiceService {
         duration: 1500
       });
       toast.present();
+    }
+
+    async presentLoading() {
+       this.loading = await this.loadingController.create({
+        message: 'Procesando...'
+      });
+      await this.loading.present();
+  
+      console.log('Loading dismissed!');
     }
 
 }

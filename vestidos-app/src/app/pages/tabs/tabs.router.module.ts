@@ -26,6 +26,10 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: '../tab2/tab2.module#Tab2PageModule'
+          },
+          {
+            path: 'infoVestido/:id',
+            loadChildren: '../info-vestido/info-vestido.module#InfoVestidoPageModule'
           }
         ]
       },
