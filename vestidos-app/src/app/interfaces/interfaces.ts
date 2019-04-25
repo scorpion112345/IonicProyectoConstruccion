@@ -27,3 +27,18 @@ export interface Vestido {
   estado?: string;
   observaciones?: string;
 }
+
+
+export interface RespuestaPagos {
+  ok: boolean;
+  pagos: Pago[];
+}
+
+export interface Pago {
+  id?: number;
+  id_cliente?: number;
+  fecha?: string;
+  monto?: number;
+  total?: number;
+  estado?: string;
+}

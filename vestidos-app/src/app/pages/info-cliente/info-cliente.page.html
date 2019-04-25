@@ -64,18 +64,43 @@
                       <ion-label>Entrega</ion-label>
                       <ion-button fill="outline" slot="end">Ver</ion-button>
                     </ion-item>
-                  
-                    <!-- <ion-card-content>
-                      This is content, without any paragraph or header tags,
-                      within an ion-card-content element.
-                    </ion-card-content> -->
                   </ion-card>
       
             </ion-list>
 
   
         </ion-list>
-      </div>      
+      </div>
+      
+      <ion-list *ngIf="cliente.id_vestido">
+          <ion-list-header>
+            <ion-label><h2>Pagos</h2></ion-label>
+          </ion-list-header>
+  
+          <ion-card *ngFor="let pago of pagos">
+              <ion-item>
+                
+                <ion-icon  class="cash" name="cash" slot="start"></ion-icon>
+                <ion-label>{{ pago.estado }}</ion-label>
+                <ion-button fill="outline" slot="end">Ver</ion-button>
+              </ion-item>
+            
+              <!-- <ion-card-content>
+                This is content, without any paragraph or header tags,
+                within an ion-card-content element.
+              </ion-card-content> -->
+            </ion-card>
+
+            <ion-slide class="slide-mas">
+                <ion-button  expand= "full"
+                              class="btn-mas">  
+            
+                  <ion-icon slot="icon-only" name="add"></ion-icon>
+                </ion-button>
+              </ion-slide>
+  
+        </ion-list>
+
 
       <ion-grid *ngIf="!cliente.id_vestido">
           <ion-row>
@@ -96,12 +121,14 @@
                             shape="round"
                             expand="block"
                             (click)="formularioCita()"> 
-                            Agregar Cita 
+                            Agendar Cita 
                 </ion-button>
         
             </ion-col>
           </ion-row>
         </ion-grid>
+
+
  
 </ion-content>
 

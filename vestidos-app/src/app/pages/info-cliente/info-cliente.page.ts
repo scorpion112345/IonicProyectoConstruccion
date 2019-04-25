@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientesService } from './../../services/clientes.service';
 import { ActivatedRoute } from '@angular/router';
-import { Cliente, Vestido } from '../../interfaces/interfaces';
+import { Cliente, Vestido, Pago } from '../../interfaces/interfaces';
 import { VestidosService } from '../../services/vestidos.service';
 import { ModalController, NavController } from '@ionic/angular';
 import { VestidosFormularioComponent } from '../../components/vestidos-formulario/vestidos-formulario.component';
+import { PagosService } from '../../services/pagos.service';
 
 @Component({
   selector: 'app-info-cliente',
@@ -14,18 +15,26 @@ import { VestidosFormularioComponent } from '../../components/vestidos-formulari
 export class InfoClientePage implements OnInit {
 
   cliente: any = {};
+  pagos: Pago[] = [];
 
+  slideOpts = {
+    slidesPerView: 3.3,
+    freeMode: true
+  };
 
   constructor(  private route: ActivatedRoute,
                 private clienteService: ClientesService,
                 private vestidosService: VestidosService,
                  private modalCtrl: ModalController,
-                 private navCtrl: NavController) { 
+                 private navCtrl: NavController,
+                 private pagosService: PagosService) { 
                 }
 
   ngOnInit() {
     const idCliente = this.route.snapshot.paramMap.get('id');
+
     this.getCliente(idCliente);
+
 
     this.vestidosService.nuevoVestido
       .subscribe( () => {
@@ -40,6 +49,8 @@ export class InfoClientePage implements OnInit {
       .subscribe( (resp: any) => {        
         this.cliente = resp.clientes;
         console.log(this.cliente);
+        this.getPagos();
+
       })
   }
 
@@ -63,6 +74,18 @@ export class InfoClientePage implements OnInit {
   formularioCita() {
   }
 
+  getPagos() {
+    this.pagosService.getPagosPorCliente(this.cliente.id)
+      .subscribe( resp => {
+        this.pagos = resp.pagos;
+        console.log(this.pagos);
+      })
+  }
+
+  verDetallePagos( idPago) {
+    console.log(idPago);
+    
+  }
 
 
 }
