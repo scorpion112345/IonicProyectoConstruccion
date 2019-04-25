@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { IonSegment } from '@ionic/angular';
 import { VestidosService } from '../../services/vestidos.service';
 import { Vestido } from '../../interfaces/interfaces';
 import { ActivatedRoute } from '@angular/router';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-info-vestido',
@@ -11,10 +12,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class InfoVestidoPage implements OnInit {
 
+  actualVestido: Vestido = {
+    estado: '',
+    observaciones: ''
+  };
+
+  @Input () id;
   
   @ViewChild(IonSegment) segment: IonSegment;
 
   vestido: Vestido = {};
+  creando: boolean = false;
 
   constructor( private vestidosService: VestidosService,
                 private route: ActivatedRoute,) { }
@@ -31,8 +39,17 @@ export class InfoVestidoPage implements OnInit {
 
   }
 
-  actualizaVestido( fRegistro ) {
+  async actualizaVestido( fRegistro ) {
     if (fRegistro.invalid) { return;}
+    this.actualVestido.id = this.id;
+
+    this.creando = true;
+    const valido = await this.vestidosService.actualizaVestido(this.actualVestido, this.id);
+
+    if (valido) {
+      console.log('Funciona')
+    }
+    this.creando = false;
   }
 
 

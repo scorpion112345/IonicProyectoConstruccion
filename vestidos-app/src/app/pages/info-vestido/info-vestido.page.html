@@ -23,17 +23,47 @@
 
 <ion-content >
 
-<ion-grid class="animated fadeIn fast" *ngIf="segment.value === 'vestido'">
-  <ion-row>
-    <ion-col >
-        <ion-item lines="none">
-            <ion-label text-center>
-                <h2>  <b>MODELO:  </b>  {{ vestido.modelo }}</h2>
-              </ion-label>
-        </ion-item>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+<ion-list class="animated fadeIn fast" *ngIf="segment.value === 'vestido'">
+  
+    <br><ion-label text-center><h1>Vestido</h1></ion-label>
+  
+
+  <ion-item>
+    <ion-img src="/assets/icon/dress.png" slot="start"></ion-img>
+    <ion-label> {{ vestido.modelo }} </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-img src="/assets/icon/pantone.png" slot="start"></ion-img>
+    <ion-label> {{ vestido.color }} </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-img src="/assets/icon/meter.png" slot="start"></ion-img>
+    <ion-label> {{ vestido.talla }} </ion-label>
+  </ion-item>
+  
+  <ion-item>
+    <ion-img src="/assets/icon/towel.png" slot="start"></ion-img>
+    <ion-label> {{ vestido.tela }} </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-img src="/assets/icon/treasure.png" slot="start"></ion-img>
+    <ion-label> {{ vestido.complementos }} </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-img src="/assets/icon/growth.png" slot="start"></ion-img>
+    <ion-label> {{ vestido.estado }} </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-img src="/assets/icon/binoculars.png" slot="start"></ion-img>
+    <ion-label> {{ vestido.observaciones }} </ion-label>
+  </ion-item>
+
+</ion-list>
 
 
 <!-- Actualizar usuario -->
