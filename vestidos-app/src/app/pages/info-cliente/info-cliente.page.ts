@@ -6,6 +6,7 @@ import { VestidosService } from '../../services/vestidos.service';
 import { ModalController, NavController } from '@ionic/angular';
 import { VestidosFormularioComponent } from '../../components/vestidos-formulario/vestidos-formulario.component';
 import { PagosService } from '../../services/pagos.service';
+import { PagosFormularioComponent } from '../../components/pagos-formulario/pagos-formulario.component';
 
 @Component({
   selector: 'app-info-cliente',
@@ -39,6 +40,11 @@ export class InfoClientePage implements OnInit {
     this.vestidosService.nuevoVestido
       .subscribe( () => {
         this.getCliente(idCliente);
+      })
+
+    this.pagosService.nuevoPago
+      .subscribe( pago => {
+        this.pagos.push(pago);
       })
       
   }
@@ -85,6 +91,16 @@ export class InfoClientePage implements OnInit {
   verDetallePagos( idPago) {
     console.log(idPago);
     
+  }
+
+ async pagosFormulario( idCliente ) {
+    const modal = await this.modalCtrl.create({
+      component: PagosFormularioComponent,
+      componentProps: {
+        idCliente
+      }
+    });
+    modal.present();
   }
 
 

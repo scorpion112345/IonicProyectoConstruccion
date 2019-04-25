@@ -5,21 +5,25 @@ import { IonicModule } from '@ionic/angular';
 import { ListaVestidosComponent } from './lista-vestidos/lista-vestidos.component';
 import { VestidosFormularioComponent } from './vestidos-formulario/vestidos-formulario.component';
 import { FormsModule } from '@angular/forms';
+import { PagosFormularioComponent } from './pagos-formulario/pagos-formulario.component';
 
 
 @NgModule({
   entryComponents: [
-    VestidosFormularioComponent
+    VestidosFormularioComponent,
+    PagosFormularioComponent
   ],
   declarations: [
     ListaVestidosComponent,
     ListaClientesComponent,
-    VestidosFormularioComponent
+    VestidosFormularioComponent,
+    PagosFormularioComponent
   ],
   exports: [
     ListaVestidosComponent,
     ListaClientesComponent,
     VestidosFormularioComponent,
+    PagosFormularioComponent
   ],
   imports: [
     CommonModule,
