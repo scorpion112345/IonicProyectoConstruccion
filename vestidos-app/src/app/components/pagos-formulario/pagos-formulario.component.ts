@@ -24,9 +24,7 @@ export class PagosFormularioComponent implements OnInit {
   creando: boolean = false;
 
   fecha: Date = new Date();
-  dia= this.fecha.getDate();
-  mes= this.fecha.getMonth() +1;
-  anio= this.fecha.getFullYear();
+
 
 
   constructor( private pagosService: PagosService,
@@ -42,11 +40,7 @@ export class PagosFormularioComponent implements OnInit {
 
     if (fRegistro.invalid) {return;}
 
-    const fechaRegistro = `${this.dia}/${this.mes}/${this.anio}`;
-
-    this.nuevoPago.fecha = fechaRegistro;
-    this.nuevoPago.id_cliente = this.idCliente;
-
+  
     this.creando = true;
     const valido = await this.pagosService.crearPago(this.nuevoPago, this.idCliente);
 
@@ -54,7 +48,7 @@ export class PagosFormularioComponent implements OnInit {
       this.modalCtrl.dismiss();
       this.uiService.presentToast('Pago creado');
     }
-    this.creando = false;
+   this.creando = false;
 
     
   }

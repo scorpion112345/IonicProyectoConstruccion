@@ -45,11 +45,6 @@ vestidoRoutes.post('/update/:id', (req, res) => {
     const body = req.body;
     const id = req.params.id;
     const newVestido = {
-        modelo: body.modelo,
-        color: body.color,
-        tela: body.tela,
-        talla: body.talla,
-        complementos: body.complementos,
         estado: body.estado,
         observaciones: body.observaciones
     };

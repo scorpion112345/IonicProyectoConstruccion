@@ -61,7 +61,7 @@ DESCRIBE cliente;
 CREATE TABLE pago(
      id INT(11) NOT NULL,
      id_cliente INT(11),
-     fecha timestamp NOT NULL DEFAULT current_timestamp,
+     fecha DATE NOT NULL,
      monto int(8) NOT NULL,
      total int(10) NOT NULL,
      estado VARCHAR(10) NOT NULL,
@@ -83,6 +83,7 @@ CREATE TABLE cita(
      id INT(11) NOT NULL,
      id_cliente INT(11),
      fecha timestamp NOT NULL,
+     hora VARCHAR(15) NOT NULL,
      CONSTRAINT fk_clienteCita FOREIGN KEY (id_cliente) REFERENCES cliente (id)
 );
 
@@ -94,5 +95,8 @@ ALTER TABLE cita
 
 ALTER TABLE cita
     ADD tipo_cita ENUM('Presupuesto', 'Prueba', 'Entrega') NOT NULL  ;
+
+  ALTER TABLE cita
+    ADD hora VARCHAR(15) NOT NULL;
 
 DESCRIBE cita;

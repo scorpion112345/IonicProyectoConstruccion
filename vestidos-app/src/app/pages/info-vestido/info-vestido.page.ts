@@ -3,7 +3,7 @@ import { IonSegment } from '@ionic/angular';
 import { VestidosService } from '../../services/vestidos.service';
 import { Vestido } from '../../interfaces/interfaces';
 import { ActivatedRoute } from '@angular/router';
-import { identifierModuleUrl } from '@angular/compiler';
+import { UiServiceService } from '../../services/ui-service.service';
 
 @Component({
   selector: 'app-info-vestido',
@@ -12,44 +12,65 @@ import { identifierModuleUrl } from '@angular/compiler';
 })
 export class InfoVestidoPage implements OnInit {
 
-  actualVestido: Vestido = {
-    estado: '',
-    observaciones: ''
-  };
-
-  @Input () id;
   
   @ViewChild(IonSegment) segment: IonSegment;
 
   vestido: Vestido = {};
   creando: boolean = false;
 
+  
+  actualVestido: Vestido = {
+    estado: '',
+    observaciones: ''
+  };
+
   constructor( private vestidosService: VestidosService,
-                private route: ActivatedRoute,) { }
+                private route: ActivatedRoute,
+                private uiService: UiServiceService) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.segment.value = 'vestido';
-    this.vestidosService.getVestido(Number(id))
-      .subscribe( resp => {
-        this.vestido = resp.vestidos[0];
-        console.log(this.vestido);
+    
+    this.getvestido(id);
 
-      })
+    this.vestidosService.nuevoVestido 
+      .subscribe(() => {
+        this.getvestido(id);
+      });
+
+
 
   }
 
   async actualizaVestido( fRegistro ) {
     if (fRegistro.invalid) { return;}
-    this.actualVestido.id = this.id;
+
+    console.log(this.vestido.id);
+    console.log(this.actualVestido);
 
     this.creando = true;
-    const valido = await this.vestidosService.actualizaVestido(this.actualVestido, this.id);
+    const valido = await this.vestidosService.actualizaVestido(this.actualVestido, this.vestido.id);
 
     if (valido) {
-      console.log('Funciona')
+      console.log('Funciona');
+      this.segment.value = 'vestido';
+      this.uiService.presentToast('Vestido actualizado');
+    } else {
+      this.uiService.alertaInformativa('Ocurrio un error');
     }
     this.creando = false;
+
+  }
+
+  getvestido(id) {
+    this.vestidosService.getVestido(Number(id))
+      .subscribe( resp => {
+        this.vestido = resp.vestidos[0];
+        this.actualVestido.estado = this.vestido.estado;
+        this.actualVestido.observaciones = this.vestido.observaciones;
+        console.log(this.vestido);
+      })
   }
 
 

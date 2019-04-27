@@ -91,7 +91,7 @@
                 <ion-label position="floating">Estado</ion-label>
                 <ion-input name="estado"
                            type="text"
-                           [(ngModel)]="vestido.estado"
+                           [(ngModel)]="actualVestido.estado"
                            required></ion-input>   
               </ion-item>   
   
@@ -102,7 +102,7 @@
   <ion-item>
       <ion-label position="floating">Descripcion</ion-label>
       <ion-textarea 
-          [(ngModel)]="vestido.observaciones" name="observaciones" ></ion-textarea>
+          [(ngModel)]="actualVestido.observaciones" name="observaciones" ></ion-textarea>
      </ion-item>
     
     <ion-row>

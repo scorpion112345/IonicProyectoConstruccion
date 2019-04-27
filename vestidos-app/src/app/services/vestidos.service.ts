@@ -52,7 +52,7 @@ export class VestidosService {
       this.http.post(`${URL}/vestidos/update/${idVestido}`, vestido)
         .subscribe( resp => {
           console.log(resp);
-          //this.nuevoPost.emit();
+          this.nuevoVestido.emit(true);
           resolve(true);
         })
   });

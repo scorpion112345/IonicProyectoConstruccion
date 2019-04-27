@@ -1,5 +1,7 @@
 {
   "name": "vestidos-app",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
