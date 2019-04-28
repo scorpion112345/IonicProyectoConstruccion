@@ -24,7 +24,7 @@ export class PagosFormularioComponent implements OnInit {
   creando: boolean = false;
 
   fecha: Date = new Date();
-
+ 
 
 
   constructor( private pagosService: PagosService,
@@ -32,15 +32,15 @@ export class PagosFormularioComponent implements OnInit {
                 private uiService: UiServiceService) { }
 
   ngOnInit() {
-    console.log(this.idCliente);
-    
+    console.log('idCliente', this.idCliente);
+
   }
 
   async registro( fRegistro: NgForm ) {
 
     if (fRegistro.invalid) {return;}
 
-  
+
     this.creando = true;
     const valido = await this.pagosService.crearPago(this.nuevoPago, this.idCliente);
 
@@ -50,7 +50,6 @@ export class PagosFormularioComponent implements OnInit {
     }
    this.creando = false;
 
-    
   }
 
 }

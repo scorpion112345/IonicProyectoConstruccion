@@ -42,3 +42,16 @@ export interface Pago {
   total?: number;
   estado?: string;
 }
+
+export interface RespuestaCita {
+  ok?: boolean;
+  newCita?: Cita;
+  mensaje?: string;
+}
+
+export interface Cita {
+  id_cliente?: string;
+  fecha?: string;
+  hora?: string;
+  tipo_cita?: string;
+}

@@ -65,6 +65,15 @@
                       <ion-button fill="outline" slot="end">Ver</ion-button>
                     </ion-item>
                   </ion-card>
+
+                  <ion-slide class="slide-mas">
+                    <ion-button  expand= "full"
+                                  class="btn-mas"
+                                  (click)="citasFormulario( cliente.id )">  
+                
+                      <ion-icon slot="icon-only" name="add"></ion-icon>
+                    </ion-button>
+                  </ion-slide>
       
             </ion-list>
 
@@ -121,7 +130,7 @@
                 <ion-button 
                             shape="round"
                             expand="block"
-                            (click)="formularioCita()"> 
+                            (click)="citasFormulario( cliente.id )"> 
                             Agendar Cita 
                 </ion-button>
         

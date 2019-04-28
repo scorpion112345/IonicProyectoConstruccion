@@ -6,24 +6,28 @@ import { ListaVestidosComponent } from './lista-vestidos/lista-vestidos.componen
 import { VestidosFormularioComponent } from './vestidos-formulario/vestidos-formulario.component';
 import { FormsModule } from '@angular/forms';
 import { PagosFormularioComponent } from './pagos-formulario/pagos-formulario.component';
+import { CitasFormularioComponent } from './citas-formulario/citas-formulario.component';
 
 
 @NgModule({
   entryComponents: [
     VestidosFormularioComponent,
-    PagosFormularioComponent
+    PagosFormularioComponent,
+    CitasFormularioComponent
   ],
   declarations: [
     ListaVestidosComponent,
     ListaClientesComponent,
     VestidosFormularioComponent,
-    PagosFormularioComponent
+    PagosFormularioComponent,
+    CitasFormularioComponent
   ],
   exports: [
     ListaVestidosComponent,
     ListaClientesComponent,
     VestidosFormularioComponent,
-    PagosFormularioComponent
+    PagosFormularioComponent,
+    CitasFormularioComponent
   ],
   imports: [
     CommonModule,

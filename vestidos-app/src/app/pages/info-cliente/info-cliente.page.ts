@@ -7,6 +7,7 @@ import { ModalController, NavController } from '@ionic/angular';
 import { VestidosFormularioComponent } from '../../components/vestidos-formulario/vestidos-formulario.component';
 import { PagosService } from '../../services/pagos.service';
 import { PagosFormularioComponent } from '../../components/pagos-formulario/pagos-formulario.component';
+import { CitasFormularioComponent } from '../../components/citas-formulario/citas-formulario.component';
 
 @Component({
   selector: 'app-info-cliente',
@@ -77,7 +78,14 @@ export class InfoClientePage implements OnInit {
     modal.present();
   }
 
-  formularioCita() {
+  async citasFormulario( idCliente ) {
+    const modal = await this.modalCtrl.create({
+      component: CitasFormularioComponent,
+      componentProps: {
+        idCliente
+      }
+    });
+    modal.present();
   }
 
   getPagos() {
