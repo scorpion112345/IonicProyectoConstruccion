@@ -45,7 +45,7 @@ export interface Pago {
 
 export interface RespuestaCita {
   ok?: boolean;
-  newCita?: Cita;
+  citas?: Cita;
   mensaje?: string;
 }
 

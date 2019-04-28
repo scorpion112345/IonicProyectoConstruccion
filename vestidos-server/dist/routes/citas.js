@@ -6,6 +6,7 @@ const OneSignal = require('onesignal-node');
 const citasRoutes = express_1.Router();
 const pool = require('../database');
 exports.default = citasRoutes;
+// Crear cita
 citasRoutes.post('/create/:idCliente', (req, res) => {
     const body = req.body;
     const id_cliente = req.params.idCliente;
@@ -57,7 +58,7 @@ citasRoutes.post('/prueba', (req, res) => {
     firstNotification.postBody["included_segments"] = ["Active Users"];
     firstNotification.postBody["excluded_segments"] = ["Banned Users"];
     // set notification parameters    
-    //firstNotification.postBody["data"] = {"abc": "123", "foo": "bar"};    
+    //firstNotification.postBody["data"] = {"idcita": newPush.idCita };    
     firstNotification.postBody["send_after"] = newPush.fecha; //'Sat Apr 27 2019 22:33:42 GMT-0500 (hora de verano central)';
     // send this notification to All Users except Inactive ones    
     myClient.sendNotification(firstNotification, function (err, httpResponse, data) {
@@ -74,5 +75,61 @@ citasRoutes.post('/prueba', (req, res) => {
             }
             console.log(data, httpResponse.statusCode);
         }
+    });
+});
+// Obtener citas por cliente  
+citasRoutes.get('/getcitas/:idCliente', (req, res) => {
+    const idCliente = req.params.idCliente;
+    pool.query('SELECT * FROM cita WHERE id_cliente = ? ', [idCliente])
+        .then((citas) => {
+        res.json({
+            ok: true,
+            citas,
+        });
+        console.log(citas);
+    }).catch((err) => {
+        res.json(err);
+    });
+});
+// Obtener todas las citas 
+citasRoutes.get('/', (req, res) => {
+    pool.query('SELECT * FROM cita')
+        .then((citas) => {
+        if (citas.length > 0) {
+            res.json({
+                ok: true,
+                citas,
+            });
+        }
+        else {
+            res.json({
+                ok: false,
+                mensaje: 'No hay citas disponibles',
+            });
+        }
+        console.log(citas);
+    }).catch((err) => {
+        res.json(err);
+    });
+});
+citasRoutes.get('/delete/:idCita', (req, res) => {
+    const idCita = req.params.idCita;
+    pool.query('DELETE FROM cita WHERE id = ?', [idCita])
+        .then((citas) => {
+        if (citas.affectedRows > 0) {
+            res.json({
+                ok: true,
+                mensaje: 'cita eliminada correctamente',
+            });
+        }
+        else {
+            res.json({
+                ok: false,
+                mensaje: 'Ocurrio un error al eliminar la cita',
+            });
+        }
+        console.log(citas);
+    }).catch((err) => {
+        res.json(err);
     });
 });

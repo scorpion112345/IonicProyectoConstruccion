@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientesService } from './../../services/clientes.service';
 import { ActivatedRoute } from '@angular/router';
-import { Cliente, Vestido, Pago } from '../../interfaces/interfaces';
+import { Cliente, Vestido, Pago, Cita } from '../../interfaces/interfaces';
 import { VestidosService } from '../../services/vestidos.service';
 import { ModalController, NavController } from '@ionic/angular';
 import { VestidosFormularioComponent } from '../../components/vestidos-formulario/vestidos-formulario.component';
 import { PagosService } from '../../services/pagos.service';
 import { PagosFormularioComponent } from '../../components/pagos-formulario/pagos-formulario.component';
 import { CitasFormularioComponent } from '../../components/citas-formulario/citas-formulario.component';
+import { CitasService } from '../../services/citas.service';
 
 @Component({
   selector: 'app-info-cliente',
@@ -18,6 +19,7 @@ export class InfoClientePage implements OnInit {
 
   cliente: any = {};
   pagos: Pago[] = [];
+  citas: Cita[] = [];
 
   slideOpts = {
     slidesPerView: 3.3,
@@ -29,7 +31,8 @@ export class InfoClientePage implements OnInit {
                 private vestidosService: VestidosService,
                  private modalCtrl: ModalController,
                  private navCtrl: NavController,
-                 private pagosService: PagosService) { 
+                 private pagosService: PagosService,
+                 private citasService: CitasService) { 
                 }
 
   ngOnInit() {
@@ -47,6 +50,7 @@ export class InfoClientePage implements OnInit {
       .subscribe( pago => {
         this.pagos.push(pago);
       })
+
       
   }
 
@@ -57,6 +61,13 @@ export class InfoClientePage implements OnInit {
         this.cliente = resp.clientes;
         console.log(this.cliente);
         this.getPagos();
+
+      this.citasService.getCitasPorCliente(this.cliente.id)
+        .subscribe( resp => {
+          console.log(resp.citas);
+          //this.citas = resp.citas;
+        })
+
 
       })
   }

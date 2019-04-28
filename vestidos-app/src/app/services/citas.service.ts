@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { RespuestaCita } from '../interfaces/interfaces';
 
 const URL = environment.url;
 
@@ -27,6 +28,8 @@ export class CitasService {
   });
   }
 
+    
+
   crearNotificacion( data) {
     return new Promise( resolve => {
 
@@ -40,5 +43,9 @@ export class CitasService {
           console.log(resp);
         })
   });
+  }
+
+  getCitasPorCliente( idCliente) {
+    return this.http.get<RespuestaCita>(`${URL}/citas/getcitas/${idCliente}`);
   }
 }
