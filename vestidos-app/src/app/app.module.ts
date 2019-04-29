@@ -12,14 +12,18 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
 
 import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, 
+  imports: [
+    BrowserModule, 
     IonicModule.forRoot(),
      AppRoutingModule,
-     HttpClientModule
+     HttpClientModule,
+     IonicStorageModule.forRoot()
+     
     ],
   providers: [
     StatusBar,

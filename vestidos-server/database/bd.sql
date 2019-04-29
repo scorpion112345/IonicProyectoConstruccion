@@ -99,4 +99,6 @@ ALTER TABLE cita
   ALTER TABLE cita
     ADD hora VARCHAR(15) NOT NULL;
 
+ALTER TABLE cita
+    MODIFY fecha DATE NOT NULL;
 DESCRIBE cita;

@@ -20,6 +20,6 @@ export class ListaVestidosComponent implements OnInit {
   ngOnInit() {}
 
   verDetalle( id) {
-    this.navCtrl.navigateRoot(`tabs/tab2/infoVestido/${id}`);
+    this.navCtrl.navigateRoot(`main/tabs/tab2/infoVestido/${id}`);
   }
 }

@@ -52,4 +52,8 @@ export class PagosFormularioComponent implements OnInit {
 
   }
 
+  regresar() {
+    this.modalCtrl.dismiss();
+  }
+
 }

@@ -88,4 +88,8 @@ export class CitasFormularioComponent implements OnInit {
     console.log('Date', new Date( event.detail.value));
   }
 
+  regresar() {
+    this.modalCtrl.dismiss();
+  }
+
 }

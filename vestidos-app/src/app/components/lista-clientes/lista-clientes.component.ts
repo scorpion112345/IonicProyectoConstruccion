@@ -25,7 +25,7 @@ export class ListaClientesComponent implements OnInit {
 
   async verDetalle( id ) {
     //console.log(id)
-    this.navCtrl.navigateForward(`tabs/tab1/infoCliente/${id}`);
+    this.navCtrl.navigateForward(`main/tabs/tab1/infoCliente/${id}`);
 
   }
 

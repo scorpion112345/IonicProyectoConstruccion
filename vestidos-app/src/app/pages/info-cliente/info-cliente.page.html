@@ -2,7 +2,7 @@
   <ion-toolbar>
 
     <ion-buttons>
-      <ion-back-button defaultHref="tabs/tab1"
+      <ion-back-button defaultHref="main/tabs/tab1"
                         text="Regresar"
                         icon="arrow-round-back">
       </ion-back-button>
@@ -42,26 +42,13 @@
               <ion-list-header>
                 <ion-label><h2>Citas</h2></ion-label>
               </ion-list-header>
-      
-              <ion-card>
-                  <ion-item>
-                    
-                    <ion-icon name="clipboard" slot="start"></ion-icon>
-                    <ion-label>Encuentro</ion-label>
-                    <ion-button fill="outline" slot="end">Ver</ion-button>
-                  </ion-item>
-                
-                  <!-- <ion-card-content>
-                    This is content, without any paragraph or header tags,
-                    within an ion-card-content element.
-                  </ion-card-content> -->
-                </ion-card>
+    
 
-                <ion-card>
+                <ion-card *ngFor="let cita of citas">
                     <ion-item>
                       
                       <ion-icon name="clipboard" slot="start"></ion-icon>
-                      <ion-label>Entrega</ion-label>
+                      <ion-label> {{ cita.fecha | date}}  </ion-label>
                       <ion-button fill="outline" slot="end">Ver</ion-button>
                     </ion-item>
                   </ion-card>

@@ -1,85 +1,105 @@
-<!-- Crear usuario -->
-<form class="animated fadeIn fast"  (ngSubmit)= "registro( fRegistro ) " #fRegistro="ngForm">
-  <ion-grid fixed>
+<ion-header no-border>
+    <ion-toolbar>
+  
+      <ion-buttons>
+          <ion-button (click)="regresar()">
+              <ion-icon slot="start" name="arrow-round-back"></ion-icon>
+              <ion-label>Regresar</ion-label>
+          </ion-button>
+      </ion-buttons>
+  
+    </ion-toolbar>
+  </ion-header>
 
-      <ion-row>
-          <ion-col text-center>
-              <h3>Agregar nueva cita</h3>
-          </ion-col>
-      </ion-row>
 
-      <ion-row>
-          <ion-col size="12" text-center>
-            <ion-icon  class="icono" name="clipboard"></ion-icon>
-          </ion-col>
-        </ion-row>
 
+<ion-content padding>
+    <!-- Crear usuario -->
+    <form class="animated fadeIn fast"  (ngSubmit)= "registro( fRegistro ) " #fRegistro="ngForm">
       <ion-grid fixed>
-        
-          <ion-row  class="top-20">
-              
-            <ion-col>
-                <ion-item>
-                    <ion-label position="floating">Dia de cita </ion-label>
-                    <ion-datetime 
-                                  display-format="DD/MM/YYYY " 
-                                  picker-format="MMMM DD  "
-                                  cancelText = "Cancelar"           
-                                  [ngModel]="fecha.toISOString()"
-                                  (ionChange) = "cambioFecha($event)"
-                                  name="fecha" 
-                                  [monthNames] = "monthNames"
-                    ></ion-datetime>
-                </ion-item>
-            </ion-col>
-              
-            <ion-col>
-                <ion-item>
-                  <ion-label position="floating">Hora de cita </ion-label>
-                  <ion-datetime 
-                                display-format="hh:mm a " 
-                                picker-format="hh mm a  "
-                                cancelText = "Cancelar"           
-                                [ngModel]="fecha.toISOString()"
-                                (ionChange) = "cambioFecha($event)"
-                                name="fecha"
-                  ></ion-datetime>
-                </ion-item>
-            </ion-col>          
-            
+
+          <ion-row>
+              <ion-col text-center>
+                  <h3>Agregar nueva cita</h3>
+              </ion-col>
           </ion-row>
 
+          <ion-row>
+              <ion-col size="12" text-center>
+                <ion-icon  class="icono" name="clipboard"></ion-icon>
+              </ion-col>
+            </ion-row>
+
+          <ion-grid fixed>
+            
+              <ion-row  class="top-20">
                   
-          <ion-list-header>
-              <ion-label><h2 text-center><b>Tipo de cita</b> </h2></ion-label>
-              <hr>
-            </ion-list-header>
+                <ion-col>
+                    <ion-item>
+                        <ion-label position="floating">Dia de cita </ion-label>
+                        <ion-datetime 
+                                      display-format="DD/MM/YYYY " 
+                                      picker-format="MMMM DD  "
+                                      cancelText = "Cancelar"           
+                                      [ngModel]="fecha.toISOString()"
+                                      (ionChange) = "cambioFecha($event)"
+                                      name="fecha" 
+                                      [monthNames] = "monthNames"
+                        ></ion-datetime>
+                    </ion-item>
+                </ion-col>
+                  
+                <ion-col>
+                    <ion-item>
+                      <ion-label position="floating">Hora de cita </ion-label>
+                      <ion-datetime 
+                                    display-format="hh:mm a " 
+                                    picker-format="hh mm a  "
+                                    cancelText = "Cancelar"           
+                                    [ngModel]="fecha.toISOString()"
+                                    (ionChange) = "cambioFecha($event)"
+                                    name="fecha"
+                      ></ion-datetime>
+                    </ion-item>
+                </ion-col>          
+                
+              </ion-row>
 
-            <ion-row class="radios" text-center>
-                <ion-radio-group  [(ngModel)]="nuevaCita.tipo_cita" name="tipos" required> 
-                  <ion-item *ngFor="let tipo of tipos" lines="none">
-                    <ion-label>{{ tipo }}</ion-label>
-                    <ion-radio  [value]="tipo"></ion-radio>
-                  </ion-item>
-               </ion-radio-group> 
-             </ion-row>
+                      
+              <ion-list-header>
+                  <ion-label><h2 text-center><b>Tipo de cita</b> </h2></ion-label>
+                  <hr>
+                </ion-list-header>
+
+                <ion-row class="radios" text-center>
+                    <ion-radio-group  [(ngModel)]="nuevaCita.tipo_cita" name="tipos" required> 
+                      <ion-item *ngFor="let tipo of tipos" lines="none">
+                        <ion-label>{{ tipo }}</ion-label>
+                        <ion-radio  [value]="tipo"></ion-radio>
+                      </ion-item>
+                  </ion-radio-group> 
+                </ion-row>
+          </ion-grid>
+
+
+
+
+
+        <ion-row>
+            <ion-col  >
+                <ion-button [disabled]="creando"
+                            class="top-20"
+                            type="submit"
+                            expand='full'
+                            color="tertiary"
+                            shape="round">
+                    Asinar cita
+                </ion-button>
+            </ion-col>
+        </ion-row>
       </ion-grid>
+    </form>
 
+    
 
-
-
-
-    <ion-row>
-        <ion-col  >
-            <ion-button [disabled]="creando"
-                        class="top-20"
-                        type="submit"
-                        expand='full'
-                        color="tertiary"
-                        shape="round">
-                Asinar cita
-            </ion-button>
-        </ion-col>
-    </ion-row>
-  </ion-grid>
-</form>
+</ion-content>

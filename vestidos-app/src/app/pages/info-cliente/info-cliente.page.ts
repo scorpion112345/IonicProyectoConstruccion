@@ -65,7 +65,7 @@ export class InfoClientePage implements OnInit {
       this.citasService.getCitasPorCliente(this.cliente.id)
         .subscribe( resp => {
           console.log(resp.citas);
-          //this.citas = resp.citas;
+           this.citas = resp.citas;
         })
 
 
@@ -75,7 +75,7 @@ export class InfoClientePage implements OnInit {
   
 
   vestidoDetalle( idVestido) {
-    this.navCtrl.navigateRoot(`tabs/tab2/infoVestido/${idVestido}`, { animated: true});
+    this.navCtrl.navigateRoot(`/main/tabs/tab2/infoVestido/${idVestido}`, { animated: true});
   }
 
   async formularioVestido(id){
