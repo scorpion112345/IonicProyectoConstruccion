@@ -61,13 +61,14 @@ export class ListaPagosComponent implements OnInit {
 
 
 
-  async pagosFormulario( idCliente, totalPagar, faltante ) {
+  async pagosFormulario( idCliente, totalPagar, faltante, sumaPagos ) {
     const modal = await this.modalCtrl.create({
       component: PagosFormularioComponent,
       componentProps: {
         idCliente,
         totalPagar,
-        faltante
+        faltante,
+        sumaPagos
       }
     });
     modal.present();

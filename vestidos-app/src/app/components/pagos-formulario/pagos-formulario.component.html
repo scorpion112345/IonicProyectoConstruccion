@@ -73,9 +73,13 @@
                         <ion-input name="total"
                                     type="number"
                                     [(ngModel)]="nuevoPago.total"
-                                    required></ion-input>   
+                                    required
+                                    (ionChange) = 'cambio( $event)'
+                                    ></ion-input>   
                         </ion-item> 
                 </ion-col>
+                <p *ngIf="invalido" class="aviso">El cliente ya ha pagado ${{sumaPagos}}, por lo que no es posible asignar un monto total menor a esta cantidad` </p>
+
             </ion-row> 
     
             <ion-row>

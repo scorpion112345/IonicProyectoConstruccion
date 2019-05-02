@@ -99,15 +99,7 @@ export class InfoClientePage implements OnInit {
     
   }
 
-  async citasFormulario( idCliente ) {
-    const modal = await this.modalCtrl.create({
-      component: CitasFormularioComponent,
-      componentProps: {
-        idCliente
-      }
-    });
-    modal.present();
-  }
+
 
 
 }

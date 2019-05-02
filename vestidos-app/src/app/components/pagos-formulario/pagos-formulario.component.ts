@@ -15,7 +15,9 @@ export class PagosFormularioComponent implements OnInit {
   @Input() idCliente;
   @Input() totalPagar;
   @Input() faltante;
+  @Input() sumaPagos;
 
+  invalido = false;
 
 
   nuevoPago: Pago = {
@@ -26,7 +28,6 @@ export class PagosFormularioComponent implements OnInit {
   };
 
   creando: boolean = false;
-
   fecha: Date = new Date();
  
 
@@ -47,6 +48,16 @@ export class PagosFormularioComponent implements OnInit {
       this.uiService.alertaInformativa('Debes llenar todos los campos');
       return;
     }
+
+    if ( this.nuevoPago.total <  this.sumaPagos) {
+      return;
+    }
+
+
+
+    if (this.nuevoPago.total  ) {
+      
+    }
     
     if (this.nuevoPago.monto > this.faltante && this.faltante != 0) {
       this.uiService.alertaInformativa('No es posible asignar un monto mayor al faltante a pagar');
@@ -55,6 +66,7 @@ export class PagosFormularioComponent implements OnInit {
       this.uiService.alertaInformativa('No es posible asignar un monto mayor al total a pagar');
       return;
     }
+    
 
 
 
@@ -71,6 +83,15 @@ export class PagosFormularioComponent implements OnInit {
 
   regresar() {
     this.modalCtrl.dismiss();
+  }
+
+  cambio( event ){
+    if ( this.nuevoPago.total <  this.sumaPagos) {
+      this.invalido = true;
+    } else {
+      this.invalido = false;
+      this.faltante = this.nuevoPago.total - this.sumaPagos
+    }
   }
 
 }

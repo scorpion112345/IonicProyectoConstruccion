@@ -39,75 +39,24 @@
               <ion-button fill="outline" slot="end" (click)="vestidoDetalle( cliente.id_vestido)">Ver mas</ion-button>
           </p>
 
-          <ion-list>
-              <ion-list-header>
-                <ion-label><h2>Citas</h2></ion-label>
-                <p>
-                    <span class="ion-float-right"><a (click)="citasFormulario( cliente.id )" >Agregar nuevo</a></span>
-                </p>
-              </ion-list-header>
-    
-
-                <ion-card *ngFor="let cita of citas">
-                    <ion-item>
-                      
-                      <ion-icon name="clipboard" slot="start"></ion-icon>
-                      <ion-label> {{ cita.fecha | date}}  </ion-label>
-                      <ion-button fill="outline" slot="end">Ver</ion-button>
-                    </ion-item>
-                  </ion-card>
-
-                  <ion-slide class="slide-mas">
-                    <ion-button  expand= "full"
-                                  class="btn-mas"
-                                  (click)="citasFormulario( cliente.id )">  
-                
-                      <ion-icon slot="icon-only" name="add"></ion-icon>
-                    </ion-button>
-                  </ion-slide>
-      
-            </ion-list>
-
-  
         </ion-list>
       </div>
+      <!-- Lista de las citas  -->
+      <app-lista-citas [citas]="citas"  [clienteId]='cliente.id'></app-lista-citas>
 
       <!-- Lista de los pagos -->
         <app-lista-pagos *ngIf="cliente.id_vestido != null && pagosCargados"  [pagos]="pagos"  [clienteId]='cliente.id' ></app-lista-pagos>
 
       
-      
-
-
-      <ion-grid *ngIf="!cliente.id_vestido">
-          <ion-row>
-        
-            <ion-col size="6">
-                <ion-button 
+                <ion-button *ngIf="!cliente.id_vestido"
                             shape="round"
-                            expand="block"
+                            expand="full"
                             (click)="formularioVestido(cliente.id)"
                             > 
                             Agregar Vestido 
                 </ion-button>
-            </ion-col>
-        
-            <ion-col size="6">
-        
-                <ion-button 
-                            shape="round"
-                            expand="block"
-                            (click)="citasFormulario( cliente.id )"> 
-                            Agendar Cita 
-                </ion-button>
-        
-            </ion-col>
-          </ion-row>
-        </ion-grid>
 
-
- 
-         
+    
       </ion-grid>
 </ion-content>
 

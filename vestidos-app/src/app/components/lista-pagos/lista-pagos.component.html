@@ -2,12 +2,11 @@
 
   <ion-list-header>
           <ion-label><h2>Pagos</h2></ion-label>
-          <div>
-
-          </div>
           <p *ngIf="faltante != 0 || pagos.length == 0 ">
-              <span class="ion-float-right"><a (click)="pagosFormulario( clienteId, totalPagar, faltante )" >Agregar nuevo</a></span>
+              <span class="ion-float-right"><a (click)="pagosFormulario( clienteId, totalPagar, faltante, sumaPagos )" >Agregar nuevo</a></span>
           </p>
+
+          <ion-button size="small" *ngIf="faltante == 0 &&  pagos.length > 0" class="ion-float-right" color="success"> <ion-icon name="checkmark" slot="start"></ion-icon> Pagado</ion-button>
   </ion-list-header>
 
   <ion-slides  *ngIf="pagos.length == 0" [options]="slideSoloOpts">

@@ -1,0 +1,50 @@
+
+<ion-grid fixed>
+    <ion-list>
+        <ion-list-header>
+          <ion-label><h2>Citas</h2></ion-label>
+          <p>
+              <span class="ion-float-right"><a (click)="citasFormulario( clienteId)" >Agregar nuevo</a></span>
+          </p>
+        </ion-list-header>
+    
+        <div class="citasContainer" *ngIf="citas.length == 0">
+    
+          <ion-slides   [options]="slideSoloOpts">
+            <ion-slide class="image-slide" >
+                No exite ningun pago asignado
+            </ion-slide>
+          </ion-slides>
+        
+        </div>
+     
+      <div class="citasContainer" *ngIf="citas.length > 0 ">
+        <ion-card *ngFor="let cita of citas; let i = index;">
+          <ion-item>
+            
+            <ion-icon name="clipboard" slot="start"></ion-icon>
+            <ion-label> {{ cita.tipo_cita }}  </ion-label>
+            <ion-icon (click)="bajarCard(i)" slot="end" name="arrow-dropdown"></ion-icon>
+          </ion-item>
+
+          <ion-row *ngIf="bajar && i == idABajar ">
+            <ion-col >
+                <ion-item >
+                    <ion-label> <b>Fecha:</b> {{ cita.fecha | date:"dd/MM/yyyy"}}</ion-label>
+                  </ion-item>
+            </ion-col>
+            <ion-col >
+                <ion-item >
+                    <ion-label> <b>Hora:</b> {{ cita.hora}}</ion-label>
+                  </ion-item>
+            </ion-col>
+          </ion-row>
+     
+          
+        </ion-card>
+      </div>
+          
+    
+    
+      </ion-list>
+</ion-grid>

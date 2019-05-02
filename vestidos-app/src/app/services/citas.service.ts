@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { RespuestaCita } from '../interfaces/interfaces';
+import { RespuestaCita, Cita } from '../interfaces/interfaces';
 
 const URL = environment.url;
 
@@ -10,6 +10,9 @@ const URL = environment.url;
   providedIn: 'root'
 })
 export class CitasService {
+
+  nuevaCita = new EventEmitter<Cita>();
+
 
   constructor(private http: HttpClient) { }
 
@@ -20,6 +23,7 @@ export class CitasService {
         .subscribe( resp => {
           if (resp['ok'] == true) {
             resolve(true);
+             this.nuevaCita.emit(resp['newCita']);
           } else {
             resolve(false);
           }
