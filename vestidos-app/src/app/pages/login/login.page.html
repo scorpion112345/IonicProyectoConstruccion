@@ -41,7 +41,8 @@
   
             <ion-row>
               <ion-col>
-                <ion-button type="submit"
+                <ion-button [disabled] = "isLogin"
+                            type="submit"
                             color="tertiary"
                             shape="round">
                   Login

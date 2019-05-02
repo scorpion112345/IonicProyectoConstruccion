@@ -13,6 +13,7 @@
 
 <ion-content padding>
 
+<ion-grid fixed>
     <ion-list>
         <ion-list-header>
           <ion-label><h2>Cliente</h2></ion-label>
@@ -41,6 +42,9 @@
           <ion-list>
               <ion-list-header>
                 <ion-label><h2>Citas</h2></ion-label>
+                <p>
+                    <span class="ion-float-right"><a (click)="citasFormulario( cliente.id )" >Agregar nuevo</a></span>
+                </p>
               </ion-list-header>
     
 
@@ -67,36 +71,12 @@
   
         </ion-list>
       </div>
-      
-      <ion-list *ngIf="cliente.id_vestido">
-          <ion-list-header>
-            <ion-label><h2>Pagos</h2></ion-label>
-          </ion-list-header>
-  
-          <ion-card *ngFor="let pago of pagos">
-              <ion-item>
-                
-                <ion-icon  class="cash" name="cash" slot="start"></ion-icon>
-                <ion-label>{{ pago.estado }}</ion-label>
-                <ion-button fill="outline" slot="end">Ver</ion-button>
-              </ion-item>
-            
-              <!-- <ion-card-content>
-                This is content, without any paragraph or header tags,
-                within an ion-card-content element.
-              </ion-card-content> -->
-            </ion-card>
 
-            <ion-slide class="slide-mas">
-                <ion-button  expand= "full"
-                              class="btn-mas"
-                              (click)="pagosFormulario( cliente.id )">  
-            
-                  <ion-icon slot="icon-only" name="add"></ion-icon>
-                </ion-button>
-              </ion-slide>
-  
-        </ion-list>
+      <!-- Lista de los pagos -->
+        <app-lista-pagos *ngIf="cliente.id_vestido != null && pagosCargados"  [pagos]="pagos"  [clienteId]='cliente.id' ></app-lista-pagos>
+
+      
+      
 
 
       <ion-grid *ngIf="!cliente.id_vestido">
@@ -127,6 +107,8 @@
 
 
  
+         
+      </ion-grid>
 </ion-content>
 
    

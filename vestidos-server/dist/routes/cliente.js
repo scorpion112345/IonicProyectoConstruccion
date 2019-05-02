@@ -77,39 +77,91 @@ clienteRoutes.get('/:id', (req, res) => {
         res.json(err);
     });
 });
-clienteRoutes.get('/delete/:id', (req, res) => {
+clienteRoutes.get('/delete/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
     const id = req.params.id;
-    pool.query(' DELETE cliente, vestidos from cliente JOIN vestidos ON cliente.id_vestido = vestidos.id WHERE cliente.id = ?', [id])
-        .then((cliVest) => {
+    try {
+        // Cita
+        const cliCita = yield pool.query(' DELETE FROM cita WHERE id_cliente = ?', [id]);
+        if (cliCita.affectedRows > 0 || cliCita.serverStatus == 2) {
+            // Pagos
+            const cliPagos = yield pool.query(' DELETE FROM pago WHERE id_cliente = ?', [id]);
+            if (cliPagos.affectedRows > 0 || cliPagos.serverStatus == 2) {
+                // Vestidos
+                const cliVest = yield pool.query(' DELETE cliente, vestidos from cliente JOIN vestidos ON cliente.id_vestido = vestidos.id WHERE cliente.id = ?', [id]);
+                if (cliVest.affectedRows > 0) {
+                    res.json({
+                        ok: true,
+                        cliVest,
+                        mensaje: "Cliente y vestido borrado correctamente"
+                    });
+                }
+                else {
+                    const cli = yield pool.query(' DELETE FROM cliente WHERE cliente.id = ?', [id]);
+                    if (cli.affectedRows > 0) {
+                        res.json({
+                            ok: true,
+                            cliVest,
+                            mensaje: "Cliente  borrado correctamente"
+                        });
+                    }
+                    else {
+                        res.json({
+                            ok: false,
+                            cli,
+                            mensaje: "No se pudo borrar el cliente o el vestido  "
+                        });
+                    }
+                }
+            }
+            else {
+                res.json({
+                    ok: false,
+                    cliPagos,
+                    mensaje: "No se pudo borrar los pagos "
+                });
+            }
+        }
+        else {
+            res.json({
+                ok: false,
+                cliCita,
+                mensaje: "No se puedo borrar las citas"
+            });
+        }
+    }
+    catch (err) {
+        res.json(err);
+    }
+    /*.then((cliVest: any) => {
         console.log(cliVest);
-        if (cliVest.affectedRows > 0) {
+        if (cliVest.affectedRows> 0) {
             res.json({
                 ok: true,
                 mensaje: "Cliente y vestido borrado correctamente"
             });
+        } else {
+            pool.query(' DELETE FROM cliente WHERE cliente.id = ?',[id])
+                .then((cliVest: any) => {
+                    console.log(cliVest);
+                    if (cliVest.affectedRows > 0) {
+                        res.json({
+                            ok: true,
+                            mensaje: "Cliente borrado correctamente"
+                        });
+                    } else {
+                        res.json({
+                            ok: true,
+                            mensaje: "no se encontro nada"
+                        });
+                    }
+                
+                }).catch((err: any) => {
+                    res.json(err);
+                });
         }
-        else {
-            pool.query(' DELETE FROM cliente WHERE cliente.id = ?', [id])
-                .then((cliVest) => {
-                console.log(cliVest);
-                if (cliVest.affectedRows > 0) {
-                    res.json({
-                        ok: true,
-                        mensaje: "Cliente borrado correctamente"
-                    });
-                }
-                else {
-                    res.json({
-                        ok: true,
-                        mensaje: "no se encontro nada"
-                    });
-                }
-            }).catch((err) => {
-                res.json(err);
-            });
-        }
-    }).catch((err) => {
+    
+    }).catch((err: any) => {
         res.json(err);
-    });
-});
+    });*/
+}));
 exports.default = clienteRoutes;

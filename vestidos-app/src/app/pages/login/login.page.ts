@@ -17,6 +17,8 @@ export class LoginPage implements OnInit {
     password: '123'
   }
 
+  isLogin = false;
+
   constructor( private usuarioService: UsuariosService,
               private navCtrl: NavController,
               private uiservice: UiServiceService) { }
@@ -28,17 +30,18 @@ export class LoginPage implements OnInit {
   
     if (fLogin.invalid) {  return; }
 
+    this.isLogin = true;
     const valido = await  this.usuarioService.login( this.loginUser.nombre, this.loginUser.password);
 
     if (valido) {
       console.log('es valido');
-      
       // navegar al tabs
       this.navCtrl.navigateRoot( '/main/tabs/tab1', { animated: true} );
     } else{
       // mostrar alerta de usuario y contrasena no correctos
       this.uiservice.alertaInformativa("Usuario y/o contraseña no son correctas.");
     }
+    this.isLogin = false;
 
     console.log(this.loginUser);
   }

@@ -20,8 +20,8 @@
     <form class="animated fadeIn fast"  (ngSubmit)= "registro( fRegistro ) " #fRegistro="ngForm">
             <ion-grid fixed>
     
-                <ion-row>
-                    <ion-col text-center>
+                <ion-row *ngIf="faltante > 0">
+                    <ion-col  text-center>
                         <h3>Agregar nuevo Pago</h3>
                     </ion-col>
                 </ion-row>
@@ -37,12 +37,19 @@
                     <ion-row >
     
                         
-                        <ion-col offset="6">
+                        <ion-col >
                             <ion-item lines="none">
                                 <ion-label > <b>Fecha: </b> {{ fecha | date:'dd/MM/yyyy' }}</ion-label>
                             <!-- {{ fecha | date }} -->
                             </ion-item>
-                        </ion-col>       
+                        </ion-col>  
+                        
+                        <ion-col >
+                            <ion-item *ngIf="faltante != 0" lines="none">
+                                <ion-label > <b>Faltante: </b> {{ faltante }}</ion-label>
+                            <!-- {{ fecha | date }} -->
+                            </ion-item>
+                        </ion-col>   
                     
                     </ion-row>
 
@@ -73,15 +80,6 @@
     
             <ion-row>
     
-                <ion-col size="12">
-                    <ion-item>
-                        <ion-label position="floating">Estado</ion-label>
-                        <ion-input name="estado"
-                                    type="text"
-                                    [(ngModel)]="nuevoPago.estado"
-                                    required></ion-input>   
-                        </ion-item>  
-                </ion-col>
                 
             </ion-row>
     

@@ -7,6 +7,7 @@ import { VestidosFormularioComponent } from './vestidos-formulario/vestidos-form
 import { FormsModule } from '@angular/forms';
 import { PagosFormularioComponent } from './pagos-formulario/pagos-formulario.component';
 import { CitasFormularioComponent } from './citas-formulario/citas-formulario.component';
+import { ListaPagosComponent } from './lista-pagos/lista-pagos.component';
 
 
 @NgModule({
@@ -20,14 +21,16 @@ import { CitasFormularioComponent } from './citas-formulario/citas-formulario.co
     ListaClientesComponent,
     VestidosFormularioComponent,
     PagosFormularioComponent,
-    CitasFormularioComponent
+    CitasFormularioComponent,
+    ListaPagosComponent
   ],
   exports: [
     ListaVestidosComponent,
     ListaClientesComponent,
     VestidosFormularioComponent,
     PagosFormularioComponent,
-    CitasFormularioComponent
+    CitasFormularioComponent,
+    ListaPagosComponent
   ],
   imports: [
     CommonModule,

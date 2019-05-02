@@ -38,4 +38,6 @@ userRoutes.post('/login', (req, res) => {
         res.json(err);
     });
 });
+userRoutes.get('/', (req, res) => {
+});
 exports.default = userRoutes;

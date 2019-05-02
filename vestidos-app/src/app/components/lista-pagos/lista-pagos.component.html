@@ -1,0 +1,43 @@
+<ion-list>
+
+  <ion-list-header>
+          <ion-label><h2>Pagos</h2></ion-label>
+          <div>
+
+          </div>
+          <p *ngIf="faltante != 0 || pagos.length == 0 ">
+              <span class="ion-float-right"><a (click)="pagosFormulario( clienteId, totalPagar, faltante )" >Agregar nuevo</a></span>
+          </p>
+  </ion-list-header>
+
+  <ion-slides  *ngIf="pagos.length == 0" [options]="slideSoloOpts">
+    <ion-slide class="image-slide" >
+        No exite ningun pago asignado
+    </ion-slide>
+  </ion-slides>
+
+  <div *ngIf=" pagos.length > 0">
+    <ion-card *ngFor="let pago of pagos">
+      <ion-item>
+          <ion-icon  class="cash" name="cash" slot="start"></ion-icon>
+        <ion-label>{{ pago.fecha | date:"dd/MM/yyyy"}}  <span class="ion-float-right"> $ {{ pago.monto }}</span></ion-label>
+      </ion-item>
+    </ion-card>
+
+    <ion-row>
+      <ion-col>
+          <ion-item>
+              <ion-label>Faltante: <span text-center ><b>${{ faltante }}</b></span></ion-label>
+            </ion-item>
+      </ion-col>
+      <ion-col   >
+          <ion-item>
+              <ion-label>Total a pagar: <span text-center ><b>${{ totalPagar }}</b></span> </ion-label>
+            </ion-item>
+      </ion-col>
+      
+    </ion-row>
+  </div>
+    
+
+</ion-list>

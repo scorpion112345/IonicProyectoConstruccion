@@ -19,6 +19,7 @@ export class InfoClientePage implements OnInit {
 
   cliente: any = {};
   pagos: Pago[] = [];
+  pagosCargados = false;
   citas: Cita[] = [];
 
   slideOpts = {
@@ -45,12 +46,6 @@ export class InfoClientePage implements OnInit {
       .subscribe( () => {
         this.getCliente(idCliente);
       })
-
-    this.pagosService.nuevoPago
-      .subscribe( pago => {
-        this.pagos.push(pago);
-      })
-
       
   }
 
@@ -64,7 +59,7 @@ export class InfoClientePage implements OnInit {
 
       this.citasService.getCitasPorCliente(this.cliente.id)
         .subscribe( resp => {
-          console.log(resp.citas);
+          console.log('Citas', resp.citas);
            this.citas = resp.citas;
         })
 
@@ -89,21 +84,13 @@ export class InfoClientePage implements OnInit {
     modal.present();
   }
 
-  async citasFormulario( idCliente ) {
-    const modal = await this.modalCtrl.create({
-      component: CitasFormularioComponent,
-      componentProps: {
-        idCliente
-      }
-    });
-    modal.present();
-  }
+  
 
   getPagos() {
     this.pagosService.getPagosPorCliente(this.cliente.id)
       .subscribe( resp => {
         this.pagos = resp.pagos;
-        console.log(this.pagos);
+        this.pagosCargados = true;
       })
   }
 
@@ -112,9 +99,9 @@ export class InfoClientePage implements OnInit {
     
   }
 
- async pagosFormulario( idCliente ) {
+  async citasFormulario( idCliente ) {
     const modal = await this.modalCtrl.create({
-      component: PagosFormularioComponent,
+      component: CitasFormularioComponent,
       componentProps: {
         idCliente
       }

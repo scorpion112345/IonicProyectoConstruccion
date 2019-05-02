@@ -38,12 +38,12 @@ userRoutes.post('/login', (req: any, res: Response) => {
             }
         }).catch((err: any) => {
             res.json(err);
-        });
-
-
-        
+        });        
 })
 
+userRoutes.get('/', (req: any, res: Response) => {
+
+})
 
 
 

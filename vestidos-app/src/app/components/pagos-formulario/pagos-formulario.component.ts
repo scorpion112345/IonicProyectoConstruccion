@@ -13,6 +13,10 @@ import { UiServiceService } from '../../services/ui-service.service';
 export class PagosFormularioComponent implements OnInit {
 
   @Input() idCliente;
+  @Input() totalPagar;
+  @Input() faltante;
+
+
 
   nuevoPago: Pago = {
     monto: null,
@@ -32,13 +36,26 @@ export class PagosFormularioComponent implements OnInit {
                 private uiService: UiServiceService) { }
 
   ngOnInit() {
-    console.log('idCliente', this.idCliente);
-
+    this.nuevoPago.total = this.totalPagar;
+    console.log(this.faltante);
+    
   }
 
   async registro( fRegistro: NgForm ) {
 
-    if (fRegistro.invalid) {return;}
+    if (fRegistro.invalid) {
+      this.uiService.alertaInformativa('Debes llenar todos los campos');
+      return;
+    }
+    
+    if (this.nuevoPago.monto > this.faltante && this.faltante != 0) {
+      this.uiService.alertaInformativa('No es posible asignar un monto mayor al faltante a pagar');
+      return;
+    } else if(this.nuevoPago.monto > this.nuevoPago.total) {
+      this.uiService.alertaInformativa('No es posible asignar un monto mayor al total a pagar');
+      return;
+    }
+
 
 
     this.creando = true;

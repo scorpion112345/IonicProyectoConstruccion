@@ -84,11 +84,9 @@ export class VestidosFormularioComponent implements OnInit {
     this.nuevoVestido.complementos = this.listaDeComplementos;    
     this.listaDeComplementos = '';
 
-    this.uiService.presentLoading();
     const Creadovalido = await this.vestidosService.creaVestido(this.nuevoVestido, this.id);
 
     if (Creadovalido) {
-      this.uiService.loading.dismiss();
       this.modalCtrl.dismiss();
       this.navCtrl.navigateForward(`tabs/tab2`);
       this.uiService.presentToast('Vestido creado con exito');

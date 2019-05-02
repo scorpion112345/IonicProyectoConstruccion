@@ -76,10 +76,67 @@ clienteRoutes.get('/:id' ,(req,res:Response) => {
 });
 
 
-clienteRoutes.get('/delete/:id' ,(req,res:Response) => {
+clienteRoutes.get('/delete/:id' ,async (req,res:Response) => {
     const id = req.params.id
-    pool.query(' DELETE cliente, vestidos from cliente JOIN vestidos ON cliente.id_vestido = vestidos.id WHERE cliente.id = ?',[id])
-    .then((cliVest: any) => {
+
+    
+    
+   try {
+       // Cita
+    const cliCita = await  pool.query(' DELETE FROM cita WHERE id_cliente = ?',[id]);
+    if (cliCita.affectedRows> 0 || cliCita.serverStatus == 2) {
+
+        // Pagos
+        const cliPagos = await  pool.query(' DELETE FROM pago WHERE id_cliente = ?',[id]);
+        if (cliPagos.affectedRows> 0 || cliPagos.serverStatus == 2) {
+                // Vestidos
+                    const cliVest = await  pool.query(' DELETE cliente, vestidos from cliente JOIN vestidos ON cliente.id_vestido = vestidos.id WHERE cliente.id = ?',[id]);
+                    if (cliVest.affectedRows> 0) {
+                    res.json({
+                        ok: true,
+                        cliVest,
+                        mensaje: "Cliente y vestido borrado correctamente"
+                    });
+                    } else {
+                        const cli = await  pool.query(' DELETE FROM cliente WHERE cliente.id = ?',[id]);
+                        if (cli.affectedRows> 0) {
+                            res.json({
+                                ok: true,
+                                cliVest,
+                                mensaje: "Cliente  borrado correctamente"
+                            });
+                        } 
+                        else {
+                            res.json({
+                                ok: false,
+                                cli,
+                                mensaje: "No se pudo borrar el cliente o el vestido  "
+                            })
+                        }
+                        
+                    }
+                } else {
+                    res.json({
+                        ok: false,
+                        cliPagos,
+                        mensaje: "No se pudo borrar los pagos "
+                    })
+                }
+        
+    } else {
+        res.json({
+            ok: false,
+            cliCita,
+            mensaje: "No se puedo borrar las citas"
+        })
+    }
+    
+   } catch (err) {
+    res.json(err);
+   } 
+
+
+    /*.then((cliVest: any) => {
         console.log(cliVest);
         if (cliVest.affectedRows> 0) {
             res.json({
@@ -109,7 +166,7 @@ clienteRoutes.get('/delete/:id' ,(req,res:Response) => {
     
     }).catch((err: any) => {
         res.json(err);
-    });
+    });*/
 });
 
 

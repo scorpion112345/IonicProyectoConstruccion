@@ -49,6 +49,8 @@ CREATE TABLE cliente(
      CONSTRAINT fk_vestido FOREIGN KEY (id_vestido) REFERENCES vestidos (id)
 );
 
+
+
 ALTER TABLE cliente
     ADD PRIMARY KEY (id);
 
