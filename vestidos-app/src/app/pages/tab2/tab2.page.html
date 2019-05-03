@@ -3,12 +3,28 @@
     <ion-title>
       Vestidos
     </ion-title>
+
+    <ion-buttons slot="end">
+        <ion-button (click)="mostrarPop( $event)">
+          <ion-icon color="primary" name = "contact" slot="icon-only"></ion-icon>
+        </ion-button>
+
+      </ion-buttons>
+      
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-    <app-lista-vestidos [vestidos]="vestidos">
+    <ion-slides class="slide-full" *ngIf="vestidos.length == 0" [options]="slideSoloOpts">
+        <ion-slide  >
+           <p class="centrado">
+              No hay ningun vestido asignado  
+           </p> 
+        </ion-slide>
+      </ion-slides>
+
+    <app-lista-vestidos *ngIf="vestidos.length > 0" [vestidos]="vestidos">
 
     </app-lista-vestidos>
 </ion-content>

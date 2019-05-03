@@ -93,7 +93,7 @@ citasRoutes.get('/getcitas/:idCliente', (req, res) => {
 });
 // Obtener todas las citas 
 citasRoutes.get('/', (req, res) => {
-    pool.query('SELECT * FROM cita')
+    pool.query('SELECT cita.id, cita.id_cliente, fecha , tipo_cita, hora,  nombre, apellidos from cita INNER JOIN cliente ON cita.id_cliente = cliente.id ORDER BY fecha')
         .then((citas) => {
         if (citas.length > 0) {
             res.json({

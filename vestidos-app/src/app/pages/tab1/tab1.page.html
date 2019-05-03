@@ -1,6 +1,21 @@
 <ion-header no-border>
-  <ion-toolbar>
-    
+    <ion-toolbar>
+      <ion-title>
+        Clientes
+      </ion-title>
+  
+      <ion-buttons slot="end">
+          <ion-button (click)="mostrarPop( $event)">
+            <ion-icon color="primary" name = "contact" slot="icon-only"></ion-icon>
+          </ion-button>
+  
+        </ion-buttons>
+        
+    </ion-toolbar>
+  </ion-header>
+
+<ion-toolbar>
+
     <!-- Default Segment -->
 <ion-segment (ionChange)="segmentChanged($event)">
     <ion-segment-button value="clientes">
@@ -13,11 +28,23 @@
     
 
   </ion-toolbar>
-</ion-header>
 
 <ion-content >
 
-    <app-lista-clientes *ngIf="segment.value === 'clientes'" [clientes]="clientes" ></app-lista-clientes>
+  <div  [ngClass]="{slidesContainer: segment.value === 'clientes'}"   *ngIf="clientes.length == 0">
+      <ion-slides class="slide-full" *ngIf="segment.value === 'clientes'"  [options]="slideSoloOpts">
+          <ion-slide  >
+             <p class="centrado">
+                No se ha creado ningun cliente 
+             </p> 
+          </ion-slide>
+        </ion-slides>
+  </div>
+    
+
+      <div *ngIf="clientes.length > 0">
+          <app-lista-clientes *ngIf="segment.value === 'clientes'" [clientes]="clientes"  (borrado) = "clientesBorados( $event)"></app-lista-clientes>
+      </div>
 
   
 

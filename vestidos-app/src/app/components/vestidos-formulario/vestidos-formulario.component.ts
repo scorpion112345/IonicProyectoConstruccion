@@ -13,6 +13,7 @@ import { Vestido } from 'src/app/interfaces/interfaces';
 export class VestidosFormularioComponent implements OnInit {
 
   @Input() id;
+  creando = false;
 
   tallas = ['Xs','S','M','G','XL','XXL'];
   complementos = [
@@ -71,6 +72,7 @@ export class VestidosFormularioComponent implements OnInit {
     
     if (fRegistro.invalid) { return;} 
 
+    this.creando = true;
     for (const complemento of this.complementos) {
       if (complemento.isChecked) {
         if (this.listaDeComplementos == '') {
@@ -88,10 +90,10 @@ export class VestidosFormularioComponent implements OnInit {
 
     if (Creadovalido) {
       this.modalCtrl.dismiss();
-      this.navCtrl.navigateForward(`tabs/tab2`);
       this.uiService.presentToast('Vestido creado con exito');
     }
 
+    this.creando = false;
     this.nuevoVestido = {};
   }
 

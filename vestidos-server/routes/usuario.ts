@@ -1,5 +1,6 @@
 import { Router, Response, Request } from 'express';
 import Token from '../classes/token';
+import { verificaToken } from '../middlewares/autenticacion';
 
 const userRoutes = Router();
 const pool = require('../database');
@@ -24,7 +25,7 @@ userRoutes.post('/login', (req: any, res: Response) => {
                 const tokenUser = Token.getJwtToken({
                     _id: usuario[0].id,
                     nombre: usuario[0].nombre,
-
+                    tipo: usuario[0].tipo
                 })
                 res.json({
                     ok: true,
@@ -41,9 +42,16 @@ userRoutes.post('/login', (req: any, res: Response) => {
         });        
 })
 
-userRoutes.get('/', (req: any, res: Response) => {
+userRoutes.get('/', [verificaToken], (req: any, res: Response) => {
 
-})
+    const usuario = req.usuario;
+
+    res.json({
+        ok: true,
+        usuario
+    })
+
+});
 
 
 

@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const token_1 = __importDefault(require("../classes/token"));
+const autenticacion_1 = require("../middlewares/autenticacion");
 const userRoutes = express_1.Router();
 const pool = require('../database');
 userRoutes.post('/login', (req, res) => {
@@ -22,6 +23,7 @@ userRoutes.post('/login', (req, res) => {
             const tokenUser = token_1.default.getJwtToken({
                 _id: usuario[0].id,
                 nombre: usuario[0].nombre,
+                tipo: usuario[0].tipo
             });
             res.json({
                 ok: true,
@@ -38,6 +40,11 @@ userRoutes.post('/login', (req, res) => {
         res.json(err);
     });
 });
-userRoutes.get('/', (req, res) => {
+userRoutes.get('/', [autenticacion_1.verificaToken], (req, res) => {
+    const usuario = req.usuario;
+    res.json({
+        ok: true,
+        usuario
+    });
 });
 exports.default = userRoutes;

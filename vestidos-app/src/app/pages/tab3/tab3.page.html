@@ -1,11 +1,62 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Tab Three
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header no-border>
+    <ion-toolbar>
+      <ion-title>
+        Citas
+      </ion-title>
 
-<ion-content>
+      <ion-buttons slot="end">
+          <ion-button (click)="mostrarPop( $event)">
+            <ion-icon color="primary" name = "contact" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
 
-</ion-content>
+      <ion-slides class="slide-full" *ngIf="citas.length == 0" [options]="slideSoloOpts">
+          <ion-slide  >
+             <p class="centrado">
+                No hay citas programadas
+             </p> 
+          </ion-slide>
+        </ion-slides>
+  
+      <div class="citasContainer" *ngIf="citas.length > 0 ">
+          <ion-card *ngFor="let cita of citas; let i = index;">
+            <ion-item>
+              
+              <ion-icon name="clipboard" slot="start"></ion-icon>
+              <ion-label> <b>Fecha:</b> {{ cita.fecha | date:"dd/MM/yyyy"}}  </ion-label>
+              <ion-icon (click)="bajarCard(i)" slot="end" name="arrow-dropdown"></ion-icon>
+            </ion-item>
+  
+
+            <ion-list  *ngIf="bajar && i == idABajar">
+                <ion-row>
+          
+                    <ion-col >
+                        <ion-item lines="none" >
+                            <ion-label> <b>Tipo:</b> {{ cita.tipo_cita }} </ion-label>
+                          </ion-item>
+                    </ion-col>
+                    <ion-col >
+                        <ion-item lines="none"  >
+                            <ion-label > <b>Hora:</b> {{ cita.hora}}</ion-label>
+                          </ion-item>                            
+                    </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col>
+                        <ion-item lines="none" >
+                            <ion-label> <b>Cliente:</b> {{ cita.nombre}} {{ cita.apellidos}} </ion-label>
+                            <ion-button (click)="verDetalle(cita.id_cliente)" fill="outline" slot="end">Ver cliente</ion-button>
+                          </ion-item>
+                    </ion-col>
+                  </ion-row>
+                </ion-list>       
+          </ion-card>
+        </div>
+  </ion-content>
+  

@@ -9,17 +9,22 @@
           <ion-button size="small" *ngIf="faltante == 0 &&  pagos.length > 0" class="ion-float-right" color="success"> <ion-icon name="checkmark" slot="start"></ion-icon> Pagado</ion-button>
   </ion-list-header>
 
-  <ion-slides  *ngIf="pagos.length == 0" [options]="slideSoloOpts">
-    <ion-slide class="image-slide" >
-        No exite ningun pago asignado
-    </ion-slide>
-  </ion-slides>
+
+  <div class="citasContainer" *ngIf="pagos.length == 0">
+    
+      <ion-slides [options]="slideSoloOpts">
+        <ion-slide class="image-slide" >
+            No exite ningun pago asignado
+        </ion-slide>
+      </ion-slides>
+
+    </div>
 
   <div *ngIf=" pagos.length > 0">
     <ion-card *ngFor="let pago of pagos">
       <ion-item>
           <ion-icon  class="cash" name="cash" slot="start"></ion-icon>
-        <ion-label>{{ pago.fecha | date:"dd/MM/yyyy"}}  <span class="ion-float-right"> $ {{ pago.monto }}</span></ion-label>
+        <ion-label><b>Fecha:</b> {{ pago.fecha | date:"dd/MM/yyyy"}}  <span class="ion-float-right"> $ {{ pago.monto }}</span></ion-label>
       </ion-item>
     </ion-card>
 

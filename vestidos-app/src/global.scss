@@ -10,6 +10,21 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+.popinfo{
+
+background-color: transparent;
+
+}
+
+
+.slide-full, .slide-full ion-slide  {
+  height: 100% !important;
+}
+
+.centrado{
+  margin: auto auto;
+}
+
 .animated {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;

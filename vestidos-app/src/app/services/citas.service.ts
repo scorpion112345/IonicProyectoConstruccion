@@ -52,4 +52,8 @@ export class CitasService {
   getCitasPorCliente( idCliente) {
     return this.http.get<RespuestaCita>(`${URL}/citas/getcitas/${idCliente}`);
   }
+
+  getTodasLasCitas() {
+    return this.http.get<RespuestaCita>(`${URL}/citas`);
+  }
 }

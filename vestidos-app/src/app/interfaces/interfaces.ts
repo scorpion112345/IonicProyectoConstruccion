@@ -1,3 +1,13 @@
+export interface Usuario {
+  id?: number;
+  nombre?: string;
+  password?: string;
+  tipo?: string;
+}
+
+
+
+
 export interface RespuestaClientes {
   ok: boolean;
   clientes: Cliente[];
@@ -54,4 +64,7 @@ export interface Cita {
   fecha?: string;
   hora?: string;
   tipo_cita?: string;
+  nombre?: string;
+  apellidos?: string;
+
 }

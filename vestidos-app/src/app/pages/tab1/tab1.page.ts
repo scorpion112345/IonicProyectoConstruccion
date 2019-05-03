@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClientesService } from '../../services/clientes.service';
 import { Cliente } from '../../interfaces/interfaces';
-import { IonSegment } from '@ionic/angular';
+import { IonSegment, PopoverController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { UiServiceService } from '../../services/ui-service.service';
+import { PopinfoUsuarioComponent } from '../../components/popinfo-usuario/popinfo-usuario.component';
 
 @Component({
   selector: 'app-tab1',
@@ -26,8 +27,15 @@ export class Tab1Page implements OnInit{
 
   creando: boolean = false;
 
+  slideSoloOpts = {
+    allowSlideNext: false,
+    allowSlidePrev: false
+  }
+
   constructor( private clientesService: ClientesService,
-              private uiService: UiServiceService) {
+              private uiService: UiServiceService,
+              
+              private popoverCtrl: PopoverController) {
 
   }
 
@@ -65,6 +73,26 @@ export class Tab1Page implements OnInit{
       .subscribe( (resp) => {
         this.clientes = resp.clientes;
       });
+  }
+
+  clientesBorados( event) {
+    if (event) {
+      this.clientes = [];
+    }
+  }
+
+  async  mostrarPop( evento ) { 
+
+    const popover = await this.popoverCtrl.create({
+      component: PopinfoUsuarioComponent,
+      event: evento,
+      mode: 'ios',
+      backdropDismiss: true,
+      cssClass:"popinfo"
+    });
+
+    await popover.present();
+    
   }
 
 

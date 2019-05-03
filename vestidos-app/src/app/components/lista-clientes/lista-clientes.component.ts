@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Cliente } from '../../interfaces/interfaces';
 import { ClientesService } from '../../services/clientes.service';
 import { AlertController, IonList, ModalController, NavController } from '@ionic/angular';
@@ -14,6 +14,7 @@ export class ListaClientesComponent implements OnInit {
   @ViewChild('list') lista: IonList;
 
   @Input() clientes: Cliente[] = [];
+  @Output() borrado = new EventEmitter<boolean>();;
   
 
   constructor(private clientesService: ClientesService,
@@ -48,10 +49,11 @@ export class ListaClientesComponent implements OnInit {
             this.lista.closeSlidingItems();
             setTimeout(() => {
               this.clientes = this.clientes.filter( cliente => cliente.id != idBorrar);
+              if (this.clientes.length == 0) {
+                this.borrado.emit(true);
+              }
                this.uiService.presentToast('Cliente borrado con exito');
             }, 350);
-            
-
           }
         }
       ]
