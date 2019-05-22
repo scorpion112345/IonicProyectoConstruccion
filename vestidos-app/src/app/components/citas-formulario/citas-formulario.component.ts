@@ -27,7 +27,7 @@ export class CitasFormularioComponent implements OnInit {
   };
 
   nuevoPush = {
-    mensaje: 'Que pedo brother',
+    mensaje: '',
     fecha: ''
   }
 
@@ -70,6 +70,7 @@ export class CitasFormularioComponent implements OnInit {
 
       // Creacion del push
       this.nuevoPush.fecha = this.fecha.toString();
+      this.nuevoPush.mensaje = `Cita el ${this.nuevaCita.fecha} a las ${this.nuevaCita.hora}`
       const pushValido = await this.citasService.crearNotificacion( this.nuevoPush);
       this.modalCtrl.dismiss();
 

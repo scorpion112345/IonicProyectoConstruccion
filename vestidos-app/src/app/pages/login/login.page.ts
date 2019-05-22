@@ -14,8 +14,8 @@ export class LoginPage implements OnInit {
   @ViewChild('slidePrincipal') slides: IonSlides;
 
   loginUser = {
-    nombre: 'David',
-    password: '123'
+    nombre: '',
+    password: ''
   }
 
   slideOpts = {
@@ -34,7 +34,10 @@ export class LoginPage implements OnInit {
 
   async login( fLogin: NgForm) {
   
-    if (fLogin.invalid) {  return; }
+    if (fLogin.invalid) {  
+      this.uiservice.alertaInformativa("Debes completar todos los campos");
+      return;
+    }
 
     this.isLogin = true;
     const valido = await  this.usuarioService.login( this.loginUser.nombre, this.loginUser.password);

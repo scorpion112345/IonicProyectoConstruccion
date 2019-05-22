@@ -21,15 +21,15 @@
                   <ion-list>
                     
                     <ion-item>
-                      <ion-label>Nombre</ion-label>
-                      <ion-input name="email"
-                                  type="email"
+                      <ion-label>Usuario</ion-label>
+                      <ion-input name="usuario"
+                                  type="text"
                                   [(ngModel)]="loginUser.nombre"
                                   required></ion-input>
                     </ion-item>
   
                     <ion-item>
-                      <ion-label>Password</ion-label>
+                      <ion-label>Contraseña</ion-label>
                       <ion-input name="password"
                                   type="password"
                                   [(ngModel)]="loginUser.password"
@@ -44,6 +44,7 @@
               <ion-col>
                 <ion-button [disabled] = "isLogin"
                             type="submit"
+                            size="full"
                             color="tertiary"
                             shape="round">
                   Login
