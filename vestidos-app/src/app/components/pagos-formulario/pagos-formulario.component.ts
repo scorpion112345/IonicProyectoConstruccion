@@ -21,10 +21,9 @@ export class PagosFormularioComponent implements OnInit {
 
 
   nuevoPago: Pago = {
-    monto: null,
+    monto: 0,
     fecha: '',
-    total: null,
-    estado:''
+    total: 0
   };
 
   creando: boolean = false;
@@ -37,7 +36,7 @@ export class PagosFormularioComponent implements OnInit {
                 private uiService: UiServiceService) { }
 
   ngOnInit() {
-    this.nuevoPago.total = this.totalPagar;
+    this.nuevoPago.total = this.totalPagar || 0;
     console.log(this.faltante);
     
   }
@@ -86,11 +85,22 @@ export class PagosFormularioComponent implements OnInit {
   }
 
   cambio( event ){
-    if ( this.nuevoPago.total <  this.sumaPagos) {
+    this.faltante = this.nuevoPago.total - this.nuevoPago.monto;
+    if ( this.nuevoPago.total <  this.nuevoPago.monto) {
       this.invalido = true;
     } else {
       this.invalido = false;
-      this.faltante = this.nuevoPago.total - this.sumaPagos
+      //  this.faltante = this.nuevoPago.total - this.sumaPagos
+    }
+  }
+
+  montoChange( event){
+    this.faltante = this.nuevoPago.total - this.nuevoPago.monto;
+
+    if ((this.nuevoPago.monto > this.nuevoPago.total) && this.nuevoPago.total != 0) {
+      this.uiService.alertaInformativa('No es posible asignar un monto mayor al total a pagar');
+      this.faltante = 0;
+      this.nuevoPago.monto = 0;
     }
   }
 

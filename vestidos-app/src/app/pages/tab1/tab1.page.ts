@@ -15,7 +15,7 @@ export class Tab1Page implements OnInit{
 
   @ViewChild(IonSegment) segment: IonSegment;
 
-
+  titulo: String;
 
 
   clientes: Cliente[] = [];

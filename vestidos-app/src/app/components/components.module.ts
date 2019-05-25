@@ -10,6 +10,7 @@ import { CitasFormularioComponent } from './citas-formulario/citas-formulario.co
 import { ListaPagosComponent } from './lista-pagos/lista-pagos.component';
 import { ListaCitasComponent } from './lista-citas/lista-citas.component';
 import { PopinfoUsuarioComponent } from './popinfo-usuario/popinfo-usuario.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -28,7 +29,8 @@ import { PopinfoUsuarioComponent } from './popinfo-usuario/popinfo-usuario.compo
     CitasFormularioComponent,
     ListaPagosComponent,
     ListaCitasComponent,
-    PopinfoUsuarioComponent
+    PopinfoUsuarioComponent,
+    HeaderComponent
   ],
   exports: [
     ListaVestidosComponent,
@@ -38,7 +40,8 @@ import { PopinfoUsuarioComponent } from './popinfo-usuario/popinfo-usuario.compo
     CitasFormularioComponent,
     ListaPagosComponent,
     ListaCitasComponent,
-    PopinfoUsuarioComponent
+    PopinfoUsuarioComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,

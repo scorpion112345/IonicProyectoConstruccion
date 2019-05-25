@@ -62,6 +62,7 @@
                     <ion-input name="monto"
                                 type="number"
                                 [(ngModel)]="nuevoPago.monto"
+                                (ionChange) = 'montoChange( $event)'
                                 required></ion-input>
                     </ion-item>  
     
@@ -95,7 +96,7 @@
                                 expand='full'
                                 color="tertiary"
                                 shape="round">
-                        Asinar pago
+                        Asignar pago
                     </ion-button>
                 </ion-col>
             </ion-row>
