@@ -7,12 +7,15 @@ pool.getConnection((err, connection) => {
     if (err) {
         if (err.code = 'PROTOCOL_CONNECTION_LOST') {
             console.error('DATABASE CONNECTION WAS CLOSED');
+            return;
         }
         if (err.code = 'ER_CON_COUNT_ERROR') {
             console.error('DATABASE HAS TO MANY CONNECTIONS');
+            return;
         }
         if (err.code = 'ECONNREFUSED') {
             console.error('DATABASE CONNECTION WAS REFUSED');
+            return;
         }
     }
     if (connection)

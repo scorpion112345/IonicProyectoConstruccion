@@ -6,9 +6,10 @@ export default class Server {
 
     constructor() {
         this.app = express();
+        this.app.set('port', process.env.PORT || this.port);
     }
 
     start( callback: Function) {
-        this.app.listen( this.port, callback );
+        this.app.listen( this.app.get('port'), callback );
     }
 }

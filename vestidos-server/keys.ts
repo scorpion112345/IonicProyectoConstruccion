@@ -1,9 +1,8 @@
 module.exports = {
     database: {
-        host:'localhost',
-        user: 'root',
-        password: 'root',
-        database: 'vestidosdb'
-
+        host:'remotemysql.com',
+        user: 'N8wsXdBfdY',
+        password: 'vSV6OPPbXz',
+        database: 'N8wsXdBfdY'
     }
 }

@@ -8,9 +8,10 @@ class Server {
     constructor() {
         this.port = 3000;
         this.app = express_1.default();
+        this.app.set('port', process.env.PORT || this.port);
     }
     start(callback) {
-        this.app.listen(this.port, callback);
+        this.app.listen(this.app.get('port'), callback);
     }
 }
 exports.default = Server;
