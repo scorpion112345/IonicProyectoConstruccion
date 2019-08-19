@@ -1,9 +1,9 @@
 "use strict";
 module.exports = {
     database: {
-        host: 'remotemysql.com',
-        user: 'N8wsXdBfdY',
-        password: 'vSV6OPPbXz',
-        database: 'N8wsXdBfdY'
+        host: "remotemysql.com",
+        user: "GUdGyBbvbq",
+        password: "TewhNw2KM7",
+        database: "GUdGyBbvbq"
     }
 };
