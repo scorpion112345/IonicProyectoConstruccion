@@ -15,6 +15,7 @@
   </ion-header> -->
   <app-header titulo="Clientes"></app-header>
 
+
 <ion-toolbar>
 
     <!-- Default Segment -->
@@ -30,7 +31,11 @@
 
   </ion-toolbar>
 
-<ion-content >
+<ion-content >  
+
+    <ion-refresher *ngIf="segment.value === 'clientes'" color="primary"  slot="end" (ionRefresh)="recargar($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
 
   <div  [ngClass]="{slidesContainer: segment.value === 'clientes'}"   *ngIf="clientes.length == 0">
       <ion-slides class="slide-full" *ngIf="segment.value === 'clientes'"  [options]="slideSoloOpts">
@@ -44,10 +49,16 @@
     
 
       <div *ngIf="clientes.length > 0">
-          <app-lista-clientes *ngIf="segment.value === 'clientes'" [clientes]="clientes"  (borrado) = "clientesBorados( $event)"></app-lista-clientes>
+
+        <div *ngIf="segment.value === 'clientes'">
+
+              <ion-searchbar  placeholder="Buscar" animated  (ionChange) = "buscar( $event )"></ion-searchbar>
+
+            <app-lista-clientes  [clientes]="clientes | filtro:textoBuscar:'nombre'"  (borrado) = "clientesBorados( $event)"></app-lista-clientes>
+        </div>
+          
       </div>
 
-  
 
 
 <!-- Crear usuario -->
@@ -56,13 +67,13 @@
 
         <ion-row>
             <ion-col text-center>
-                <h3>Agregar nuevo cliente</h3>
+                <h3>Agregar nuevo cliente   </h3>
             </ion-col>
         </ion-row>
 
       <ion-row>
         <ion-col size="12" text-center>
-          <ion-icon color="primary" class="icono" name="contact"></ion-icon>
+          <ion-icon mode="ios" color="contacto" class="icono" name="contact"></ion-icon>
         </ion-col>
       </ion-row>
 
@@ -73,7 +84,8 @@
           <ion-list>
               <ion-item>
                 <ion-label>Nombre</ion-label>
-                <ion-input name="nombre"
+                <ion-input class="input"
+                          name="nombre"
                           type="text"
                           min="5"
                           [(ngModel)]="nuevoCliente.nombre"
@@ -82,7 +94,8 @@
 
                 <ion-item>
                 <ion-label>Apellidos</ion-label>
-                <ion-input name="apellidos"
+                <ion-input class="input"
+                            name="apellidos"
                             type="text"
                             [(ngModel)]="nuevoCliente.apellidos"
                             required></ion-input>   

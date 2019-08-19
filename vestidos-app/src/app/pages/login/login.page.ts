@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
-import { NavController, IonSlides } from '@ionic/angular';
+import { NavController, IonSlides, LoadingController } from '@ionic/angular';
 import { UiServiceService } from '../../services/ui-service.service';
 
 @Component({
@@ -26,7 +26,8 @@ export class LoginPage implements OnInit {
 
   constructor( private usuarioService: UsuariosService,
               private navCtrl: NavController,
-              private uiservice: UiServiceService) { }
+              private uiservice: UiServiceService,
+              public loadingController: LoadingController) { }
 
   ngOnInit() {
     this.slides.lockSwipes( true );
@@ -39,10 +40,20 @@ export class LoginPage implements OnInit {
       return;
     }
 
+
     this.isLogin = true;
+    const loading = await this.loadingController.create({
+      message: 'Procesando...',
+    });
+    await loading.present();
+
     const valido = await  this.usuarioService.login( this.loginUser.nombre, this.loginUser.password);
 
     if (valido) {
+      
+      
+
+
       console.log('es valido');
       if (this.usuarioService.usuario.tipo == 'ADMIN') {
         this.navCtrl.navigateRoot( '/main/tabs/tab1', { animated: true} );
@@ -55,6 +66,8 @@ export class LoginPage implements OnInit {
       // mostrar alerta de usuario y contrasena no correctos
       this.uiservice.alertaInformativa("Usuario y/o contraseña no son correctas.");
     }
+    loading.dismiss();
+
     this.isLogin = false;
 
     console.log(this.loginUser);

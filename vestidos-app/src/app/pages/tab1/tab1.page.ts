@@ -4,7 +4,8 @@ import { Cliente } from '../../interfaces/interfaces';
 import { IonSegment, PopoverController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { UiServiceService } from '../../services/ui-service.service';
-import { PopinfoUsuarioComponent } from '../../components/popinfo-usuario/popinfo-usuario.component';
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+
 
 @Component({
   selector: 'app-tab1',
@@ -15,8 +16,9 @@ export class Tab1Page implements OnInit{
 
   @ViewChild(IonSegment) segment: IonSegment;
 
-  titulo: String;
+  textoBuscar = '';
 
+  faCoffee = faCoffee;
 
   clientes: Cliente[] = [];
   nuevoCliente: Cliente = {
@@ -45,11 +47,18 @@ export class Tab1Page implements OnInit{
   }
 
   segmentChanged($event) {
-    this.getClientes();
+    this.textoBuscar = "";
+  }
+
+  
+  async recargar( event) {
+    await this.getClientes();
+    event.target.complete();
+
   }
 
   async registro( fRegistro: NgForm ) {
-    
+
     if (fRegistro.invalid) { 
       this.uiService.alertaInformativa("Debes llenar todos los campos");
       return;
@@ -81,21 +90,12 @@ export class Tab1Page implements OnInit{
     }
   }
 
-  async  mostrarPop( evento ) { 
 
-    const popover = await this.popoverCtrl.create({
-      component: PopinfoUsuarioComponent,
-      event: evento,
-      mode: 'ios',
-      backdropDismiss: true,
-      cssClass:"popinfo"
-    });
-
-    await popover.present();
+  buscar( event ){
+    this.textoBuscar = event.detail.value;
+    console.log(this.textoBuscar);
     
   }
-
-
 
  
 

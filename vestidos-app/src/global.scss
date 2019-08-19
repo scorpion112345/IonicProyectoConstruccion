@@ -10,12 +10,21 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
-.popinfo{
 
-background-color: transparent;
+/* Generales */
 
+svg.svg-inline--fa.fa-icon-only  {
+  width: 24px;
+  height: 24px;
+  color: var(--ion-color-cita)
 }
 
+
+.titulo{
+  text-align: center!important;
+  font-weight: bold;
+  font-size: 20px;
+}
 
 .slide-full, .slide-full ion-slide  {
   height: 100% !important;

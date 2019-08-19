@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSegment, NavController, PopoverController } from '@ionic/angular';
 import { CitasService } from '../../services/citas.service';
 import { Cita } from '../../interfaces/interfaces';
-import { PopinfoUsuarioComponent } from '../../components/popinfo-usuario/popinfo-usuario.component';
+
 
 @Component({
   selector: 'app-tab3',
@@ -44,20 +44,6 @@ export class Tab3Page implements OnInit{
   async verDetalle( id ) {
     this.navCtrl.navigateForward(`main/tabs/tab1/infoCliente/${id}`);
 
-  }
-
-  async  mostrarPop( evento ) { 
-
-    const popover = await this.popoverCtrl.create({
-      component: PopinfoUsuarioComponent,
-      event: evento,
-      mode: 'ios',
-      backdropDismiss: true,
-      cssClass:"popinfo"
-    });
-
-    await popover.present();
-    
   }
   
 }

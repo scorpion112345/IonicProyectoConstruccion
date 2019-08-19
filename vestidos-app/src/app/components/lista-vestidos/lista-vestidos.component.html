@@ -1,14 +1,14 @@
 <ion-list class="animated fadeIn fast"  #list >
   
-    <ion-item-sliding *ngFor="let vestido of vestidos"> 
-        <ion-item (click)="verDetalle( vestido.id)">
+    <ion-item-sliding *ngFor="let cliente of clientes"> 
+        <ion-item (click)="verDetalle( cliente.id_vestido)">
             <ion-img src="/assets/icon/wedding-dress.png" slot="start"></ion-img>
             <ion-label>
             <h3>
-                <b>{{ vestido.id }} {{ vestido.modelo }}</b>
+                <b>{{ cliente.nombre }} {{ cliente.apellidos }}</b>
             </h3>
             <p>
-                {{ vestido.tela }} {{ vestido.color}}
+                {{ cliente.modelo }} 
             </p>
             </ion-label> 
         </ion-item>

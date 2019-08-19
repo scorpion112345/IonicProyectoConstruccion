@@ -8,3 +8,42 @@ img {
     width: 120px;
 }
 
+div.titulo{
+    margin: 0 auto;
+    position: relative;
+
+}
+
+.titulo{
+    font-family: 'Great Vibes', cursive;
+    font-size: 75px;
+    color: #6b4b4b;
+    margin: 10px;
+}
+
+.titulo p{
+    margin: 10px;
+}
+.imagen{
+    //position: absolute;
+}
+
+ion-slides{
+
+        background-image: url(' src/assets/img/backgroundPoster.jpg');
+       
+            background-position: center center;
+
+            background-repeat: no-repeat;
+
+
+            background-attachment: fixed;
+
+            background-size: cover;
+}
+
+ion-item, ion-item:focus  {
+    --background: rgba(0,0,0,0);
+    //--border-color: rgba(0,0,0,0);
+} 
+

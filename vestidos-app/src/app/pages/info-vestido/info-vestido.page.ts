@@ -5,6 +5,8 @@ import { Vestido } from '../../interfaces/interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { UiServiceService } from '../../services/ui-service.service';
 
+
+
 @Component({
   selector: 'app-info-vestido',
   templateUrl: './info-vestido.page.html',
@@ -15,7 +17,10 @@ export class InfoVestidoPage implements OnInit {
   
   @ViewChild(IonSegment) segment: IonSegment;
 
-  vestido: Vestido = {};
+  vestido: Vestido = {
+    complementos: '',
+    observaciones:''
+  };
   creando: boolean = false;
 
   
@@ -44,7 +49,9 @@ export class InfoVestidoPage implements OnInit {
   }
 
   async actualizaVestido( fRegistro ) {
-    if (fRegistro.invalid) { return;}
+    if (fRegistro.invalid) { 
+      this.uiService.alertaInformativa("El campo 'Estado' no puede estar vacio"); 
+      return;}
 
     console.log(this.vestido.id);
     console.log(this.actualVestido);
@@ -53,11 +60,10 @@ export class InfoVestidoPage implements OnInit {
     const valido = await this.vestidosService.actualizaVestido(this.actualVestido, this.vestido.id);
 
     if (valido) {
-      console.log('Funciona');
-      this.segment.value = 'vestido';
       this.uiService.presentToast('Vestido actualizado');
+      this.segment.value = 'vestido';
     } else {
-      this.uiService.alertaInformativa('Ocurrio un error');
+      this.uiService.alertaInformativa('Ocurrio un error'); 
     }
     this.creando = false;
 
@@ -69,7 +75,6 @@ export class InfoVestidoPage implements OnInit {
         this.vestido = resp.vestidos[0];
         this.actualVestido.estado = this.vestido.estado;
         this.actualVestido.observaciones = this.vestido.observaciones;
-        console.log(this.vestido);
       })
   }
 

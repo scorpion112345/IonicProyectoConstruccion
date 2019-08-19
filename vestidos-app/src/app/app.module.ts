@@ -1,3 +1,4 @@
+import { PipesModule } from './pipes/pipes.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -14,6 +15,15 @@ import { HttpClientModule } from "@angular/common/http";
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+
+
+
+
+library.add(fas,fab);
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -22,7 +32,9 @@ import { IonicStorageModule } from '@ionic/storage';
     IonicModule.forRoot(),
      AppRoutingModule,
      HttpClientModule,
-     IonicStorageModule.forRoot()
+     IonicStorageModule.forRoot(),
+     PipesModule,
+     FontAwesomeModule
      
     ],
   providers: [

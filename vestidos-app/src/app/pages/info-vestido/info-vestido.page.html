@@ -8,27 +8,114 @@
           </ion-back-button>
         </ion-buttons>
     <!-- Default Segment -->
-<ion-segment >
-    <ion-segment-button value="vestido">
-      <ion-label>Vestido</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="actualizar">
-      <ion-label>Actualizar</ion-label>
-    </ion-segment-button>
-  </ion-segment>
-    
 
   </ion-toolbar>
 </ion-header>
 
+<ion-toolbar>
+    <ion-segment >
+        <ion-segment-button value="vestido">
+          <ion-label>Vestido</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="actualizar">
+          <ion-label>Actualizar</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+</ion-toolbar>
+
 <ion-content >
 
-<ion-list class="animated fadeIn fast" *ngIf="segment.value === 'vestido'">
+  <div class="animated fadeIn fast" *ngIf="segment.value === 'vestido'" >
+    <br><ion-label  text-center><h1>Vestido</h1></ion-label>
+
+
+    
+<ion-card>
+    <ion-list >
+        <ion-list-header>
+          <ion-label> <h2> <b>Modelo</b>  </h2></ion-label>
+        </ion-list-header>
+
+            <ion-item  class="activated">
+                <fa-icon color="primary" [icon]="['fab', 'modx']" slot="start" size="icon-only"></fa-icon>
+              <ion-label>{{vestido.modelo}}</ion-label>
+            </ion-item>
+
+        <ion-list-header>
+            <ion-label> <h2> <b>Color</b> </h2></ion-label>
+          </ion-list-header>
   
-    <br><ion-label text-center><h1>Vestido</h1></ion-label>
+            <ion-item  class="activated">
+            <ion-icon color="cita" name="color-palette" slot="start"></ion-icon>
+            <ion-label>{{vestido.color}}</ion-label>
+          </ion-item>
+
+          <ion-list-header>
+              <ion-label> <h2> <b>Talla</b> </h2></ion-label>
+            </ion-list-header>
+    
+            <ion-item >
+                <ion-icon color="cita" name="resize" slot="start"></ion-icon>
+                <ion-label>{{vestido.talla}}</ion-label>
+              </ion-item>
+            
+              <ion-list-header>
+                  <ion-label> <h2> <b>Tela</b> </h2></ion-label>
+                </ion-list-header>
+        
+                
+            <ion-item class="activated">
+                <fa-icon color="primary" [icon]="['fas', 'scroll']" slot="start" size="icon-only"></fa-icon>
+               
+                <ion-label>{{vestido.tela}}</ion-label>
+              </ion-item>
+
+              <ion-list-header>
+                  <ion-label> <h2> <b>Estado</b> </h2></ion-label>
+                </ion-list-header>
+        
+                
+            <ion-item class="activated">
+                <fa-icon color="primary" [icon]="['fas', 'spinner']" slot="start" size="icon-only"></fa-icon>
+                <ion-label>{{vestido.estado}}</ion-label>
+              </ion-item>
+
+
+            <div *ngIf="vestido.complementos.length > 0">
+                <ion-list-header>
+                    <ion-label> <h2> <b>Complemetos</b> </h2></ion-label>
+                  </ion-list-header>
+          
+                  
+              <ion-item class="activated">
+                  <ion-icon color="cita" name="list-box" slot="start"></ion-icon>
+                  <ion-label>{{vestido.complementos}}</ion-label>
+                </ion-item>
+            </div>
+
+
+           <div *ngIf="vestido.observaciones.length > 0">
+              <ion-list-header>
+                  <ion-label> <h2> <b>Observaciones</b> </h2></ion-label>
+                </ion-list-header>
+        
+                
+            <ion-item  class="activated">
+                <!-- <ion-icon name="warning" slot="start"></ion-icon> -->
+                <fa-icon color="primary" [icon]="['fas', 'pen-square']" slot="start" size="icon-only"></fa-icon>
+                <ion-label>{{vestido.observaciones}}</ion-label>
+              </ion-item>
+           </div>
+              
+      </ion-list>
+
+</ion-card>
+  </div >
+
+  
   
 
-  <ion-item>
+ <!--  <ion-item>
     <ion-img src="/assets/icon/dress.png" slot="start"></ion-img>
     <ion-label> {{ vestido.modelo }} </ion-label>
   </ion-item>
@@ -62,8 +149,8 @@
     <ion-img src="/assets/icon/binoculars.png" slot="start"></ion-img>
     <ion-label> {{ vestido.observaciones }} </ion-label>
   </ion-item>
+-->
 
-</ion-list>
 
 
 <!-- Actualizar usuario -->
@@ -100,7 +187,7 @@
  
   
   <ion-item>
-      <ion-label position="floating">Descripcion</ion-label>
+      <ion-label position="floating">Observaciones  </ion-label>
       <ion-textarea 
           [(ngModel)]="actualVestido.observaciones" name="observaciones" ></ion-textarea>
      </ion-item>

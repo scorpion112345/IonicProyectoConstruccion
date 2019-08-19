@@ -6,3 +6,11 @@
 ion-title{
     color: #fff
 }
+
+ion-input{
+    --border-color: blue;
+
+    .item-highlight {
+        height: var(--full-highlight-height);
+    };
+}

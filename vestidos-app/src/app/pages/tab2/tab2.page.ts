@@ -4,7 +4,8 @@ import { Vestido } from 'src/app/interfaces/interfaces';
 import { VestidosService } from 'src/app/services/vestidos.service';
 import { UiServiceService } from 'src/app/services/ui-service.service';
 import { NgForm } from '@angular/forms';
-import { PopinfoUsuarioComponent } from '../../components/popinfo-usuario/popinfo-usuario.component';
+import { ClientesService } from '../../services/clientes.service';
+import { Cliente } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'app-tab2',
@@ -17,7 +18,8 @@ export class Tab2Page implements OnInit{
 
 
 
-  vestidos: Vestido[] = [];
+  clientes: Cliente[] = [];
+  textoBuscar = "";
 
   slideSoloOpts = {
     allowSlideNext: false,
@@ -27,45 +29,31 @@ export class Tab2Page implements OnInit{
 
 
   constructor( private vestidosService: VestidosService,
-              private popoverCtrl: PopoverController) {
+              private clientesService: ClientesService) {
 
   }
 
   ngOnInit() {
-    this.getVestidos();
+    this.getFullClientes();
     this.vestidosService.nuevoVestido
     .subscribe( resp => {
-      this.getVestidos();
+      this.getFullClientes();
     } )
   }
 
-  segmentChanged($event) {
-
+  recargar(event){
+    this.getFullClientes();
   }
 
-  getVestidos() {
-    this.vestidosService.getVestidos()
+  buscar( event ){
+    this.textoBuscar = event.detail.value;
+  }
+
+  getFullClientes() {
+    this.clientesService.getFullClientes()
       .subscribe( (resp) => {
-        console.log(resp.vestidos);
-        this.vestidos = resp.vestidos;
+        this.clientes = resp.clientes;
       });
-  }
-  async  mostrarPop( evento ) { 
-
-    const popover = await this.popoverCtrl.create({
-      component: PopinfoUsuarioComponent,
-      event: evento,
-      mode: 'ios',
-      backdropDismiss: true,
-      cssClass:"popinfo"
-    });
-
-    await popover.present();
-
-   /*  const { data } = await popover.onDidDismiss(); */
-   const { data } = await popover.onWillDismiss();
-    console.log('Padre', data);
-    
   }
 
  

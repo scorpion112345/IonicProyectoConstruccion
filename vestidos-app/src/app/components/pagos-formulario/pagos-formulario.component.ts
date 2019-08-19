@@ -17,7 +17,11 @@ export class PagosFormularioComponent implements OnInit {
   @Input() faltante;
   @Input() sumaPagos;
 
-  invalido = false;
+  invalidoMTotal = false;
+  invalidoMFaltante= false;
+  invalidoSumaPagos= false;
+
+
 
 
   nuevoPago: Pago = {
@@ -28,7 +32,7 @@ export class PagosFormularioComponent implements OnInit {
 
   creando: boolean = false;
   fecha: Date = new Date();
- 
+  faltanteAux;
 
 
   constructor( private pagosService: PagosService,
@@ -38,6 +42,7 @@ export class PagosFormularioComponent implements OnInit {
   ngOnInit() {
     this.nuevoPago.total = this.totalPagar || 0;
     console.log(this.faltante);
+    this.faltanteAux = this.faltante;
     
   }
 
@@ -48,34 +53,26 @@ export class PagosFormularioComponent implements OnInit {
       return;
     }
 
+    if(this.invalidoMTotal || this.invalidoMFaltante){
+      this.uiService.alertaInformativa('Debes llenar el formulario correctamente');
+      return;
+    }
+
     if ( this.nuevoPago.total <  this.sumaPagos) {
       return;
     }
-
-
-
-    if (this.nuevoPago.total  ) {
-      
-    }
-    
-    if (this.nuevoPago.monto > this.faltante && this.faltante != 0) {
-      this.uiService.alertaInformativa('No es posible asignar un monto mayor al faltante a pagar');
-      return;
-    } else if(this.nuevoPago.monto > this.nuevoPago.total) {
-      this.uiService.alertaInformativa('No es posible asignar un monto mayor al total a pagar');
-      return;
-    }
-    
-
-
 
     this.creando = true;
     const valido = await this.pagosService.crearPago(this.nuevoPago, this.idCliente);
 
     if (valido) {
-      this.modalCtrl.dismiss();
       this.uiService.presentToast('Pago creado');
+    } else {
+      this.uiService.presentToast('Ocurrio un error');
+
     }
+
+    this.modalCtrl.dismiss();
    this.creando = false;
 
   }
@@ -84,24 +81,83 @@ export class PagosFormularioComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  cambio( event ){
-    this.faltante = this.nuevoPago.total - this.nuevoPago.monto;
-    if ( this.nuevoPago.total <  this.nuevoPago.monto) {
-      this.invalido = true;
+  totalChance( event ){
+
+   
+
+    if (this.sumaPagos == 0) {
+      
+    //Cuando el monto supera al total
+      if ((this.nuevoPago.monto > this.nuevoPago.total)) {
+        this.invalidoMTotal = true;
+        this.faltante = 0;
+      } else {
+        this.invalidoMTotal = false;
+        this.faltante = this.nuevoPago.total - this.nuevoPago.monto;
+        this.faltanteAux = this.faltante;
+      }
+
     } else {
-      this.invalido = false;
-      //  this.faltante = this.nuevoPago.total - this.sumaPagos
+
+
+      // Si se asigna un monto mayor al pagado por el cliente
+      if (this.nuevoPago.total < this.sumaPagos) {
+        this.invalidoSumaPagos=true;
+        this.faltante = 0;
+      } else {
+        this.faltante = this.faltanteAux + (this.nuevoPago.total - this.totalPagar);
+        this.invalidoSumaPagos=false;
+      }
+
+      if (this.invalidoMFaltante) {
+        this.faltante = this.nuevoPago.total - this.nuevoPago.monto;
+               
+      }
+      console.log(this.faltanteAux);
+      
     }
+
   }
 
-  montoChange( event){
-    this.faltante = this.nuevoPago.total - this.nuevoPago.monto;
+  ionBlurTotal( event) {
+    if (this.nuevoPago.total > this.sumaPagos) {
+        this.faltanteAux = this.faltante;
+    } 
+    
+    
+  }
 
-    if ((this.nuevoPago.monto > this.nuevoPago.total) && this.nuevoPago.total != 0) {
-      this.uiService.alertaInformativa('No es posible asignar un monto mayor al total a pagar');
-      this.faltante = 0;
-      this.nuevoPago.monto = 0;
+  montoChange( event){   
+    console.log(this.faltanteAux);
+    
+   
+    if (this.nuevoPago.total >= this.nuevoPago.monto) {
+      if (this.sumaPagos == 0) {
+        this.faltante = this.nuevoPago.total - this.nuevoPago.monto;        
+      } else {
+        this.faltante = this.faltanteAux - (this.nuevoPago.monto ) ;
+      }
     }
+    
+
+    if (this.sumaPagos == 0) {
+    
+      if ((this.nuevoPago.monto > this.nuevoPago.total)) {
+        this.invalidoMTotal = true;
+        this.faltante = 0;
+      } else {
+        this.invalidoMTotal = false;
+      }
+
+    } else {
+      if ((this.nuevoPago.monto > this.faltanteAux)) { 
+        this.faltante = this.faltanteAux;
+        this.invalidoMFaltante=true;
+      } else {
+        this.invalidoMFaltante=false;
+      }
+    }
+
   }
 
 }

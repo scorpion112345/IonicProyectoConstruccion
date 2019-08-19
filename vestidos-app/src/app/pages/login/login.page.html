@@ -8,21 +8,25 @@
   
         <form (ngSubmit)= "login( fLogin )" #fLogin="ngForm">
           <ion-grid fixed>
+
+            <div class="titulo">
+              <p >Creaciones <br> <span> Mia </span> </p>
+            </div>
   
             <ion-row>
               <ion-col >
-                <img src="/assets/avatars/av-1.png">
+                <img class="imagen" src="/assets/avatars/av-5.png">
               </ion-col>
             </ion-row>
           
             <ion-row>
               <ion-col>
                 
-                  <ion-list>
+                  
                     
-                    <ion-item>
+                    <ion-item >
                       <ion-label>Usuario</ion-label>
-                      <ion-input name="usuario"
+                      <ion-input  name="usuario"
                                   type="text"
                                   [(ngModel)]="loginUser.nombre"
                                   required></ion-input>
@@ -36,7 +40,6 @@
                                   required></ion-input>
                     </ion-item>
   
-                  </ion-list>
               </ion-col>
             </ion-row>
   

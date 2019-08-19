@@ -13,7 +13,6 @@ pagosRoutes.post('/create/:idCliente', (req: any, res: Response) => {
         id_cliente: idCliente,
         monto: body.monto,
         total: body.total,
-        estado: body.estado,
         fecha
     }
 

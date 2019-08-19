@@ -1,3 +1,4 @@
+import { PipesModule } from './../../pipes/pipes.module';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -5,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 import { ComponentsModule } from '../../components/components.module';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+
 
 @NgModule({
   imports: [
@@ -12,7 +15,9 @@ import { ComponentsModule } from '../../components/components.module';
     CommonModule,
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab1Page }]),
-    ComponentsModule
+    ComponentsModule,
+    PipesModule,
+    FontAwesomeModule
   ],
   declarations: [Tab1Page]
 })

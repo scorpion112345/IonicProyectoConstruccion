@@ -20,6 +20,10 @@ export class ClientesService {
     return this.http.get<RespuestaClientes>(`${URL}/clientes`);
   }
 
+  getFullClientes() {
+    return this.http.get<RespuestaClientes>(`${URL}/clientes//fullClientes`);
+  }
+
   creaCliente( cliente) {
     return new Promise( resolve => {
 

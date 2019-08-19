@@ -37,14 +37,14 @@
                     <ion-row >
     
                         
-                        <ion-col >
+                        <ion-col size="6" >
                             <ion-item lines="none">
                                 <ion-label > <b>Fecha: </b> {{ fecha | date:'dd/MM/yyyy' }}</ion-label>
                             <!-- {{ fecha | date }} -->
                             </ion-item>
                         </ion-col>  
                         
-                        <ion-col >
+                        <ion-col size="6" >
                             <ion-item *ngIf="faltante != 0" lines="none">
                                 <ion-label > <b>Faltante: </b> {{ faltante }}</ion-label>
                             <!-- {{ fecha | date }} -->
@@ -75,11 +75,16 @@
                                     type="number"
                                     [(ngModel)]="nuevoPago.total"
                                     required
-                                    (ionChange) = 'cambio( $event)'
+                                    (ionChange) = 'totalChance( $event)'
+                                    (ionBlur) = 'ionBlurTotal( $event)'
                                     ></ion-input>   
                         </ion-item> 
                 </ion-col>
-                <p *ngIf="invalido" class="aviso">El cliente ya ha pagado ${{sumaPagos}}, por lo que no es posible asignar un monto total menor a esta cantidad` </p>
+                <p *ngIf="invalidoMTotal" class="aviso">No es posible asignar un monto mayor al total a pagar </p>
+                <p *ngIf="invalidoMFaltante" class="aviso">No es posible asignar un monto mayor al faltante a pagar</p>
+                <p *ngIf="invalidoSumaPagos" class="aviso">El cliente ya ha pagado ${{sumaPagos}}, por lo que no es posible asignar un monto total menor a esta cantidad</p>
+
+
 
             </ion-row> 
     

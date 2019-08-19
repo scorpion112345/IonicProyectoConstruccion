@@ -19,9 +19,9 @@
           <ion-label><h2>Cliente</h2></ion-label>
         </ion-list-header>
 
-        <ion-item><b>Nombre: </b>   {{ cliente.nombre }} </ion-item>
-        <ion-item><b>Apellidos: </b>  {{ cliente.apellidos }} </ion-item>
-        <ion-item><b>Telefono: </b>   {{ cliente.telefono }} </ion-item>
+        <ion-item><b>Nombre: &nbsp; </b> <span>  {{ cliente.nombre }}</span>  </ion-item>
+        <ion-item><b>Apellidos: &nbsp;  </b>  {{ cliente.apellidos }} </ion-item>
+        <ion-item><b>Telefono: &nbsp; </b>   {{ cliente.telefono }} </ion-item>
 
       </ion-list>
 
@@ -29,11 +29,11 @@
 <div *ngIf="cliente.id_vestido">     
       <ion-list >
           <ion-list-header>
-            <ion-label>Vestido</ion-label>
+            <ion-label> <h2> Vestido </h2></ion-label>
           </ion-list-header>
   
-          <ion-item><b>Modelo: </b>   {{ cliente.modelo }} </ion-item>
-          <ion-item><b>Estado: </b>   {{ cliente.estado }} </ion-item>
+          <ion-item><b>Modelo: &nbsp;  </b>   {{ cliente.modelo }} </ion-item>
+          <ion-item><b>Estado: &nbsp;  </b>   {{ cliente.estado }} </ion-item>
 
           <p text-center>
               <ion-button fill="outline" slot="end" (click)="vestidoDetalle( cliente.id_vestido)">Ver mas</ion-button>
@@ -51,6 +51,7 @@
                 <ion-button *ngIf="!cliente.id_vestido"
                             shape="round"
                             expand="full"
+                            color="tertiary"
                             (click)="formularioVestido(cliente.id)"
                             > 
                             Agregar Vestido 

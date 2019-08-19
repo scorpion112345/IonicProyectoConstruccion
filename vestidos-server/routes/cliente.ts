@@ -39,6 +39,18 @@ clienteRoutes.get('/' ,(req,res:Response) => {
     });;
 })
 
+clienteRoutes.get('/fullClientes' ,(req,res:Response) => {
+    pool.query('SELECT cliente.id, id_vestido, nombre, apellidos, telefono, modelo, estado from cliente INNER JOIN vestidos ON cliente.id_vestido = vestidos.id ORDER BY id DESC')
+    .then((clientes: any) => {
+        res.json({
+            ok: true,
+            clientes,
+        })
+    }).catch((err: any) => {
+        res.json(err);
+    });;
+})
+
 
 clienteRoutes.get('/:id' ,(req,res:Response) => {
     const id = req.params.id

@@ -21,14 +21,13 @@ export class UsuariosService {
                 private navCtrl: NavController) { }
 
 
-   logOut() {
-    this.navCtrl.navigateBack('/login', {animated: true})
+   async logOut() {
+    await this.navCtrl.navigateBack('/login', {animated: true})
 
-    setTimeout(() => {
       this.token = null;
       this.usuario = null;
       this.storage.clear();
-    }, 500);
+
       
   
   }

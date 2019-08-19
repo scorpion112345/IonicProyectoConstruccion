@@ -17,7 +17,7 @@
 <form class="animated fadeIn fast" (ngSubmit)= "registro( fRegistro ) " #fRegistro="ngForm">
   <ion-grid fixed >
 
-      <ion-row *ngIf="!actualizar">
+      <ion-row>
           <ion-col text-center>
               <h3>Agregar nuevo vestido</h3>
           </ion-col>
@@ -35,7 +35,8 @@
       <ion-col >
           <ion-item>
               <ion-label position="floating">Modelo</ion-label>
-              <ion-input name="modelo"
+              <ion-input class="input"
+                        name="modelo"
                          type="text"
                          [(ngModel)]="nuevoVestido.modelo"
                          required></ion-input>   
@@ -46,7 +47,8 @@
            
             <ion-item>
                 <ion-label position="floating">Color</ion-label>
-                <ion-input name="color"
+                <ion-input class="input"
+                            name="color"
                            type="text"
                            [(ngModel)]="nuevoVestido.color"
                            required></ion-input>   
@@ -58,7 +60,8 @@
       <ion-col >
           <ion-item>
               <ion-label position="floating">Tela</ion-label>
-              <ion-input name="tela"
+              <ion-input class="input"
+                        name="tela"
                         type="text"
                         [(ngModel)]="nuevoVestido.tela"
                         required></ion-input>   
@@ -69,7 +72,8 @@
 
           <ion-item>
               <ion-label position="floating">Estado</ion-label>
-              <ion-input name="estado"
+              <ion-input class="input"
+                        name="estado"
                          type="text"
                          [(ngModel)]="nuevoVestido.estado"
                          required></ion-input>   
@@ -81,39 +85,58 @@
 <ion-row>
     <ion-col >
             <ion-list-header>
-                <ion-label><h2>tallas</h2></ion-label>
+                <ion-label><h2>Tallas</h2></ion-label>
               </ion-list-header> 
     </ion-col >
 </ion-row>
 
-<ion-row class="radios" text-center>
-   <ion-radio-group  [(ngModel)]="nuevoVestido.talla" name="talla" required> 
-      <ion-col size="2" *ngFor="let talla of tallas">
-            <ion-label>{{ talla }}</ion-label>
-            <ion-radio  [value]="talla"></ion-radio>
-      </ion-col >
-  </ion-radio-group> 
-</ion-row>
+<ion-radio-group  [(ngModel)]="nuevoVestido.talla" name="talla" required> 
+    <ion-row class="radios" text-center>
+          <ion-col size="4" *ngFor="let talla of tallas">
+            <ion-item>
+                <ion-label>{{ talla }}</ion-label>
+                <ion-radio  [value]="talla"></ion-radio>
+            </ion-item>
+                
+          </ion-col >
+    </ion-row>
+</ion-radio-group> 
 
 
 
-<ion-row>
-    <ion-col >
-            <ion-list>
-                    <ion-item *ngFor="let complemento of complementos">
+
+    <ion-list>
+
+        <ion-list-header>
+            <ion-label><h2>Complementos</h2></ion-label>
+          </ion-list-header> 
+
+          <ion-row>
+              <ion-col size="6" *ngFor="let complemento of complementos">
+                  <ion-item >
                       <ion-label>{{complemento.val}}</ion-label>
                       <ion-checkbox slot="end" [(ngModel)]="complemento.isChecked" name="complemento"></ion-checkbox>
                     </ion-item>
-                  </ion-list>
-    </ion-col >
+              </ion-col>
+          </ion-row>
+          
+            
+    </ion-list>
 
-</ion-row> 
+<ion-list>
+    <ion-list-header>
+      <ion-label>Observaciones</ion-label>
+    </ion-list-header>
+
 
 <ion-item>
-    <ion-label position="floating">Descripcion</ion-label>
+    <ion-label ></ion-label>
     <ion-textarea 
         [(ngModel)]="nuevoVestido.observaciones" name="observaciones" ></ion-textarea>
    </ion-item>
+
+  </ion-list>  
+
   
   <ion-row>
       <ion-col >

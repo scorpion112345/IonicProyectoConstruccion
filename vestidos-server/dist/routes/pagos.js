@@ -12,7 +12,6 @@ pagosRoutes.post('/create/:idCliente', (req, res) => {
         id_cliente: idCliente,
         monto: body.monto,
         total: body.total,
-        estado: body.estado,
         fecha
     };
     pool.query('INSERT INTO pago set ?', [newPago])

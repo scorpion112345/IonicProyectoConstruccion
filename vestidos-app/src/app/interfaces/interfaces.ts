@@ -19,6 +19,9 @@ export interface Cliente {
   nombre?: string;
   apellidos?: string;
   telefono?: string;
+  modelo?: string;
+  estado?: string;
+
 }
 
 export interface RespuestaVestidos {

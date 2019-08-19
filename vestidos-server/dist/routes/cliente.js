@@ -41,6 +41,18 @@ clienteRoutes.get('/', (req, res) => {
     });
     ;
 });
+clienteRoutes.get('/fullClientes', (req, res) => {
+    pool.query('SELECT cliente.id, id_vestido, nombre, apellidos, telefono, modelo, estado from cliente INNER JOIN vestidos ON cliente.id_vestido = vestidos.id ORDER BY id DESC')
+        .then((clientes) => {
+        res.json({
+            ok: true,
+            clientes,
+        });
+    }).catch((err) => {
+        res.json(err);
+    });
+    ;
+});
 clienteRoutes.get('/:id', (req, res) => {
     const id = req.params.id;
     pool.query('SELECT cliente.id, id_vestido, nombre, apellidos, telefono, modelo, estado from cliente INNER JOIN vestidos ON cliente.id_vestido = vestidos.id WHERE cliente.id =  ? ', [id])

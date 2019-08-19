@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
 import { UiServiceService } from '../../services/ui-service.service';
 import { CitasService } from '../../services/citas.service';
-import { Cita } from '../../interfaces/interfaces';
+import { Cita, Cliente } from '../../interfaces/interfaces';
+import { ClientesService } from '../../services/clientes.service';
 
 @Component({
   selector: 'app-citas-formulario',
@@ -13,6 +14,7 @@ import { Cita } from '../../interfaces/interfaces';
 export class CitasFormularioComponent implements OnInit {
 
   @Input() idCliente;
+  cliente: Cliente;
 
   fecha: Date = new Date();
 // tslint:disable-next-line: max-line-length
@@ -34,12 +36,23 @@ export class CitasFormularioComponent implements OnInit {
 
   constructor(private modalCtrl: ModalController,
               private uiService: UiServiceService,
-              private citasService: CitasService) { }
+              private citasService: CitasService,
+              private clienteService: ClientesService,
+              public loadingController: LoadingController) { }
 
   ngOnInit() {
     console.log(this.idCliente);
     this.fecha.setSeconds(0);
+    this.getCliente(this.idCliente);
     
+  }
+
+  async  getCliente(idCliente) {
+    await this.clienteService.getCliente(idCliente)
+      .subscribe( (resp: any) => {
+        this.cliente = resp.clientes;
+        console.log(this.cliente);
+      })
   }
 
   async registro( fRegistro: NgForm ) {
@@ -50,34 +63,44 @@ export class CitasFormularioComponent implements OnInit {
     const mes = this.fecha.getMonth() +1 ;
     const dia = this.fecha.getDate();
     const horas = this.fecha.getHours();
-    const minutos = this.fecha.getMinutes();
+    let minutos = this.fecha.getMinutes();
     const ampm = horas >= 12 ? 'pm' : 'am';
 
+   
 
-    //if (fRegistro.invalid) {return;}
+
+    if(fRegistro.invalid) {return;}
 
     this.nuevaCita.fecha = `${anio}/${mes}/${dia}`;
     this.nuevaCita.hora = `${horas}:${minutos} ${ampm}`
     console.log(this.nuevaCita);
-    
-
+    console.log(minutos);
 
    this.creando = true;
+
+   // Loading 
+   const loading = await this.loadingController.create({
+      message: 'Procesando...',
+    });
+  await loading.present();
+
     const valido = await this.citasService.crearCita(this.nuevaCita, this.idCliente);
 
     if (valido) {
-      this.uiService.presentToast('Cita creada');
 
       // Creacion del push
       this.nuevoPush.fecha = this.fecha.toString();
-      this.nuevoPush.mensaje = `Cita el ${this.nuevaCita.fecha} a las ${this.nuevaCita.hora}`
-      const pushValido = await this.citasService.crearNotificacion( this.nuevoPush);
-      this.modalCtrl.dismiss();
-
+      this.nuevoPush.mensaje = `Cita con: ${this.cliente.nombre} ${this.cliente.apellidos} hoy a las: ${this.nuevaCita.hora}`
+      await this.citasService.crearNotificacion( this.nuevoPush);
+      this.uiService.presentToast('Cita creada');
 
     } else {
       this.uiService.alertaInformativa('Ocurrio un error');
     }
+
+    loading.dismiss();
+
+    this.modalCtrl.dismiss();
    this.creando = false;
 
   }
